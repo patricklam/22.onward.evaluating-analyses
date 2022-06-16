@@ -1,0 +1,14 @@
+\section{Related Work}
+
+\paragraph{Correctness of empirical work.}
+
+
+Often in the programming languages research community, the worth of an idea is evaluated empirically. Research developments depend on empirical evidence to prove their effectiveness.
+In August of 2017, SIGPLAN~\cite{SIGPLAN} formed an ad hoc committee on Programming Languages Research Empirical Evaluation to find out best practices for putting together better empirical evaluation in PL research that would lead to more reliable conclusions. They examined the literature to distinguish common forms of empirical evaluation used in PL research. In doing so, they identified some common inadequacies even in recent papers in highly regarded venues. Based on this, they came up with a one-page Empirical Evaluation Checklist that includes the best practices and guidelines for empirical evaluation in programming languages research.
+
+One of the common inadequacies that they found states that, unfortunately: ``(Programming Languages) papers we looked at often subset a benchmark, or cherry-picked particular programs.''. This threatens the validity of the claims. We included the documented process of choosing the benchmarks and benchmark requirement list to avoid this issue in our work.
+
+``An unsound claim can misdirect a field, encouraging the pursuit of unworthy ideas and the abandonment of promising ideas.''. S. M. Blackburn et al.~\cite{truth_Blackburn} believed that having a methodical approach to exploring, exposing, and addressing the root of unsound claims and poor exposition would help to solve this issue. They proposed a framework that identifies two categories of sins: Three sins of reasoning that lead to unsound claims and two exposition sins that lead to poorly specified claims and evaluations. Their framework provides practitioners with methodological techniques for evaluating the integrity of their work or the work of others.
+
+Krishnamurthi et al.~\cite{aec} advocated the importance of Artifact Evaluation Committees in programming languages research. Software artifacts play a central role in the programming languages field, yet we rarely provide a software artifact for evaluation when we publish research. Krishnamurthi et al. stated that ``If a paper makes, or implies, claims that require software, those claims must be backed up.''. They also discussed the artifact evaluation process, the mechanics of artifact evaluation, who should evaluate artifacts, whether the artifacts should be published, and the benefits of artifact evaluation, such as that ``Artifact evaluation encourages authors to produce reasonable artifacts, which are the cornerstone of future research.''.
+

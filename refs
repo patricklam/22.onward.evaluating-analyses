@@ -2,4 +2,19 @@ https://ieeexplore.ieee.org/document/7194557
 https://dl.acm.org/doi/10.1145/2983574
 https://www.sigplan.org/Resources/EmpiricalEvaluation/
 
+PLATEAU workshop
+
+Shane Markstrum. Staking Claims: A History of Programming Language Design Claims and Evidence. PLATEAU 2010.
+
+meh, says that claims of goodness of new PLs are usually unexplored. So what? If the language as a whole is good, it'll get adopted more, right?
+
+Christine A. Halverson and Jeffrey Carver. Climbing the Plateau: Getting from Study Design to Data that Means Something. PLATEAU 2009.
+
+evaluating programmer productivity on a proposed language. Talks about how to actually do the study. Preliminary results.
+
+bug finding:
+pmd
+findbugs
+bugs as deviant behavior
+tricorder
 
