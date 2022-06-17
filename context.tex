@@ -1,10 +1,45 @@
 \section{Setting}
-In this work, we focus on tools which carry out program transformations. 
-In more general terms, programming languages research aims to develop techniques to reason about and manipulate programs. Evaluating techniques for soundness can be tricky, but is in principle objective. Soundness, however, is insufficient for a contribution to be strong. One can additionally evaluate these techniques in terms of power, or beauty. But often, the usefulness of the tool or technique is a key factor in its value, which can be shown experimentally. Techniques may be useful to other researchers, or to end users.
+Researchers and practitioners have developed tools to carry out
+automated and semi-automated program transformatoins.  Examples
+include tools for bug finding, program repair, and even to some extent
+program synthesis. These tools work in a large space of possibilities:
+for instance, programs have many potential bugs, only some of which
+matter.
+% XXX citations
+In more general terms, programming languages research aims to develop
+techniques to reason about and manipulate programs. Evaluating
+techniques for soundness can be tricky, but is in principle
+objective. Soundness, however, is insufficient for a contribution to
+be strong. One can additionally evaluate these techniques in terms of
+power, or beauty. But often, the usefulness of the tool or technique
+is a key factor in its value, which can be shown
+experimentally. Techniques may be useful to other researchers, or to
+end users.
 
-Our case study is a tool that proposes refactorings based on static analysis results; we aim to evaluate the usefulness of our tool. Other tools that also need to be evaluated for usefulness include tools for bug finding, program repair, and even to some extent program synthesis. These tools work in a large space of possibilities: for instance, programs have many potential bugs, only some of which matter.
+The goal of this paper is to discuss best practices for evaluating
+program transformation tools. When possible, we use our
+JTestParametrizer tool as a case study. That tool proposes
+refactorings based on static analysis results; we describe some of the
+steps that we have taken evaluate the usefulness of our tool.
 
-One way to show that a tool is useful in practice is by submitting merge requests to maintainers of open-source projects. We will discuss best practices for this sort of evaluation.
+Evaluating tools in this space is often subjective---there is no
+single right answer. Some tools, such as program refactoring tools,
+are designed to only affect nonfunctional properties of the
+software---particularly maintainability---yet different users have
+different standards for maintainability.  Meanwhile, program repair
+tools attempt to make the software (closer to) correct. Even in that
+space, per Hovemeyer and Pugh, ``finding bugs is
+easy''~\cite{hovemeyer04:_findin_bugs_easy}. Deciding which bugs are
+important to fix (and don't cause undesired regressions) is hard and
+requires a judgment call. Program synthesis is also an
+underconstrained problem and humans must decide which one of many
+potential solutions is most appropriate.
+
+A key question, then, is: which humans should evaluate the results of the tool?
+Possible answers include the tool developers, arbitrary developers, or the developers
+of particular software projects.
+
+One way to show that a tool is useful in practice is by submitting merge requests to maintainers of open-source projects. We will discuss best practices for this type of evaluation.
 
 
 \section{Concrete Examples of Evaluations in PL Research}
