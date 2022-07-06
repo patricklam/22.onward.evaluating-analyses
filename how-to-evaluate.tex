@@ -1,0 +1,39 @@
+\section{How to evaluate}
+As we've discussed, evaluating the usefulness of many program
+transformation tools requires some subjective judgment. In this
+section, we outline possible ways to evaluate such tools.
+
+The designer of the tool will have a usage scenario for the 
+transformations produced by the tool. This usage scenario is 
+necessary but not sufficient to establish that the tool is useful.
+At this level of abstraction, the usage scenario is simply something
+that a reader considers so that they can decide, based on their experience, 
+whether the tool seems like it would be useful to them or not. 
+It is still too abstract to make concrete decisions about.
+
+Typically, a program transformation tool generates a large set of
+candidate transformations. Depending on the tool, some of these
+transformations may be inappropriate. For instance, a refactoring
+tool should only propose semantics-preserving transformations; on the
+other hand, we would expect a program repair tool to change the semantics
+of the program being repaired. 
+
+In any case, even after ruling out 
+inappropriate transformations, the tool would still have a large
+number of candidates to consider, and must select some of the candidates to show
+to the user. This selection process is a key factor in the usability of the tool.
+% cite the tricoder paper
+Promising tools may fail to be useful in practice because the selection is not
+tuned to users' needs.
+
+
+
+A key question is: which humans should evaluate the results of the tool?
+Possible answers include the tool developers, arbitrary developers, or the developers
+of particular software projects.
+
+Questionnaires. User studies.
+
+Perhaps the best way to show that a tool in this space is useful in
+practice is by submitting merge requests to maintainers of open-source
+projects. We will discuss best practices for this type of evaluation.
