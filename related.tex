@@ -1,14 +1,50 @@
 \section{Related Work}
+\label{sec:related}
+We continue our discussion from the Introduction, where we briefly
+discussed evaluations of programming language designs. We next discuss
+more evaluations---here, of language implementations and visualization
+tools.
 
-\paragraph{Correctness of empirical work.}
+To our knowledge, the first empirical evaluations in the programming
+languages fields were of programming language implementations
+(e.g. compilers, and, later, Just-in-Time engines); as we mentioned
+earlier, SPEC released benchmark suites to evaluate the performance of
+these implementations. The influence of this early focus continues
+today, with Blackburn and 17 other prominent programming languages
+researchers
+authoring~\cite{blackburn16:_truth_whole_truth_nothin_but_truth}. That
+work describes errors (``sins'') in empirical evaluation of programming
+languages implementations and systems.  Specifically, it proposed a
+framework that identifies two categories of sins: sins of reasoning,
+leading to unsound claims; and sins of exposition, leading to poorly
+specified claims and evaluations. Their framework provides
+practitioners with methodological techniques for evaluating the
+integrity of their work or the work of others.  Still, the evaluations
+that the work of Blackburn et al discuss are all
+performance-related. The present work focusses more on holistic
+evalutaions of designs.
+
+Program transformation tools can be viewed as software engineering tools.
+There is discussion in the software engineering community about sampling as well:
+\citeN{baltesar:_sampl_softw_engin_resear} survey recent published works in software
+engineering and how they sample code artifacts, people, and non-code artifacts.
+They recommend best practices for sampling to ensure generalizability of research
+results.
+
+Moving farther afield from the field of programming languages, and yet
+much closer to our goals,
+\citeN{merino18:_system_liter_review_softw_visual_evaluat} survey
+published work in the software visualization tools space. As with
+program transformation tools, software visualizatoin tools operate in
+an open-ended space where it is almost impossible to make clear
+quantitative judgments of work. They investigate evaluation strategies
+for visualization tools, including survey-based, anecdotal evidence,
+usage scenarios/case studies, experiments, and examples; and data
+collection methods including questionnaires, think-aloud, interview,
+video recording, sketch drawing, and others. They propose guidelines
+for future work in that space, recommending the use of case studies
+and experiments that can show effectiveness of novel tools.
 
 
-Often in the programming languages research community, the worth of an idea is evaluated empirically. Research developments depend on empirical evidence to prove their effectiveness.
-In August of 2017, SIGPLAN~\cite{SIGPLAN} formed an ad hoc committee on Programming Languages Research Empirical Evaluation to find out best practices for putting together better empirical evaluation in PL research that would lead to more reliable conclusions. They examined the literature to distinguish common forms of empirical evaluation used in PL research. In doing so, they identified some common inadequacies even in recent papers in highly regarded venues. Based on this, they came up with a one-page Empirical Evaluation Checklist that includes the best practices and guidelines for empirical evaluation in programming languages research.
 
-One of the common inadequacies that they found states that, unfortunately: ``(Programming Languages) papers we looked at often subset a benchmark, or cherry-picked particular programs.''. This threatens the validity of the claims. We included the documented process of choosing the benchmarks and benchmark requirement list to avoid this issue in our work.
-
-``An unsound claim can misdirect a field, encouraging the pursuit of unworthy ideas and the abandonment of promising ideas.''. S. M. Blackburn et al.~\cite{truth_Blackburn} believed that having a methodical approach to exploring, exposing, and addressing the root of unsound claims and poor exposition would help to solve this issue. They proposed a framework that identifies two categories of sins: Three sins of reasoning that lead to unsound claims and two exposition sins that lead to poorly specified claims and evaluations. Their framework provides practitioners with methodological techniques for evaluating the integrity of their work or the work of others.
-
-Krishnamurthi et al.~\cite{aec} advocated the importance of Artifact Evaluation Committees in programming languages research. Software artifacts play a central role in the programming languages field, yet we rarely provide a software artifact for evaluation when we publish research. Krishnamurthi et al. stated that ``If a paper makes, or implies, claims that require software, those claims must be backed up.''. They also discussed the artifact evaluation process, the mechanics of artifact evaluation, who should evaluate artifacts, whether the artifacts should be published, and the benefits of artifact evaluation, such as that ``Artifact evaluation encourages authors to produce reasonable artifacts, which are the cornerstone of future research.''.
 
