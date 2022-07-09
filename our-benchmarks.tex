@@ -85,11 +85,3 @@ We also collected information about the git commit ID (version); number of tests
 %% \label{table:refactoring_nominees}
 %% \end{table}
 
-\paragraph{Discussion of Benchmarks}
-As discussed above, we used different benchmarks for different purposes. As our tool was a refactoring tool, it was supposed to be semantics-preserving. Beyond that, though, it was also supposed to improve code quality (maintainability or readability). These were two independent qualities that needed to be established.
-
-We used all 18 benchmarks to get quantitative metrics. Then, we used a subset of 6 benchmarks (Gson, Joda-time, Jfreechart, Commons-lang, Bootique, and Jimfs) to manually check that JTestParametrizer was indeed semantics-preserving. If an error occurred when running JTestParametrizer on a benchmark, or if after running the JTestParametrizer on a benchmark, that benchmark had compilation or test failures, then we documented those incidents, and in most cases, tried to find the source of that problem and fix the JTestParametrizer tool.
-
-Moving to qualitative evaluations, we used Gson and Joda-Time as sources of practical examples for a questionnaire to validate the quality of the refactoring (which we did not eventually distribute).
-We manually rated refactoring quality for 5 benchmarks (Jimfs, Gson, Joda-time, and Bootique). We also sought developer feedback about test refactorings of these benchmarks using merge requests.
-We believe that, in a large space such as this one, it is appropriate to select specific points in the space for detailed exploration.

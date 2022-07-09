@@ -1,0 +1,310 @@
+\section{Our Evaluation Process}
+\label{sec:our-evaluation-process}
+
+We next discuss how we performed quantitative and qualitative
+evaluations of our case study. We used different benchmarks for
+different purposes. We used all 18 benchmarks to collect quantitative
+metrics. As our tool was a refactoring tool, it was supposed to be
+semantics-preserving. We aimed to check that JTestParametrizer ran
+successfully on each benchmark, and that the transformed benchmark
+compiled and its test suite runs without errors.  In practice,
+JTestParametrizer is not yet free of bugs; we intensively used a
+subset of 6 benchmarks (Gson, Joda-time, Jfreechart, Commons-lang,
+Bootique, and Jimfs) to debug our tool.  When we encountered a bug,
+then we documented those incidents, and in most cases, tried to find
+the source of the problem and fix the JTestParametrizer tool or moved
+on. Of course, a lack of errors still does not imply that
+JTestParametrizer is free of bugs; for a sufficiently large benchmark suite,
+though, we would have some confidence that it was reasonably robust.
+
+Beyond the bare minimum of being sound, though, JTestParametrizer was
+also supposed to improve code quality (maintainability or
+readability). Semantics preservation and code quality improvement were
+two independent qualities that needed to be established separately.
+
+Moving to qualitative evaluations, we used Gson and Joda-Time as
+sources of practical examples for a questionnaire to validate the
+quality of the refactoring (which, in the event, we did not end up
+distributing).  We manually rated refactoring quality for 5 benchmarks
+(Jimfs, Gson, Joda-time, and Bootique). We also sought developer
+feedback about test refactorings of these benchmarks using merge
+requests.  We believe that, in a large space such as this one, it is
+appropriate to select specific benchmarks for detailed exploration.
+
+\subsection{Quantitative Results}
+Table~\ref{table:quantitative_results} presents a subset of the
+quantitative results that we collected. The most important results are
+the counts of refactoring nominees and actual refactored tests. We
+also report the number of JParametrizer run-time errors; compile-time
+errors for the transformed code; and test failures/skipped/errors
+after transformation.
+
+All of those also-reported numbers should be 0, or the tool should be
+able to ensure that such nominees were not actually refactored; being
+selective with one's benchmark set shouldn't mean cherry-picking
+results in that way. Yet, we typically describe our tools as research
+prototypes, and fixing all of the bugs can take weeks or even months;
+this may not be a productive use of researcher time, especially as
+these bugs don't affect anything fundamental in the system as
+described in the published work, and also because bugs may not be due
+to our own code (for instance, because of dependencies).  One could
+argue that it is defensible to bypass a small number of implementation
+bugs, especially if one is still in the process of evaluating
+the potential usefulness of a tool.
+
+\begin{table*}[h!]
+\centering
+\begin{tabular}{l c r r r r r r r r} 
+ Repository & Version & Nominees & Run-time  & Compile-time  & Refactored & Tests & Failures & Errors & Skipped \\
+  &  &  & errors & errors &  & run &  &  &  \\ [0.75ex]
+ \hline\hline
+ Gson & f649e05 & 39 & 0 & 0 & 17 & 1050 & 0 & 0 & 1 \\ 
+ Gson & f319c1b & 42 & 0 & 0 & 18 & 1063 & 0 & 0 & 1 \\ 
+ Jimfs & 3c9d8ba & 45 & 0 & 1 & 5 & 5834 & 0 & 0 & 0 \\ 
+ Bootique & d0648eb & 22 & 0 & 2 & 10 & 231 & 0 & 1 & 0 \\ 
+\end{tabular}
+\caption{JTestParametrizer Quantitative Results}
+\label{table:quantitative_results}
+\end{table*}
+
+\subsection{Qualitative Evaluation}
+It is a challenging intellectual exercise, though eventually futile,
+to aim to remove all bugs from a system. This exercise is only useful
+if the system itself is useful. We realized that, in JTestParametrizer's
+case, we needed to start to evaluate its usefulness, sooner rather than later.
+This tool would only be useful if users perceived that it indeed enhanced the
+quality of test cases.
+
+We thus decided that we should switch to validating the quality of
+refactoring first: there is no sense in debugging the implementation of a feature
+that users don't want. Easier to remove the feature.
+
+We explored several ways of seeking feedback about the quality of our
+refactorings.
+
+\paragraph{The Questionnaire}
+Using a questionnaire is one way of getting feedback. It is
+inexpensive, easy to analyze, and scalable. However, back to the
+``which humans'' question, a questionnaire does not come with any
+guarantee of quality results: it is challenging to find the right
+target audience for a technical questionnaire. Furthermore, even if we
+do so, there is no guarantee of the target audience being
+engaged and putting any time or effort into the answers.
+
+We decided to create a questionnaire to get feedback on the quality of the refactored test cases. Our questionnaire included:
+
+\begin{enumerate}
+  \item seven demographic questions to determine the familiarity of the respondent with SE/PL research in general;
+  \item seven demographic questions to determine the familiarity of the respondent with unit tests and refactoring; and,
+  \item twenty-four questions on three refactoring cases chosen from the refactored Gson benchmark, as compared to the original version.
+\end{enumerate}
+
+These twenty-four questions included comparisons based on maintainability, conciseness, readability, understandability, extensibility, and repetition criteria, and an overall quality assessment for the refactorings.
+We hand-picked those three refactoring cases since they represented three different refactoring groups in the Gson benchmark.
+
+However, before submitting the questionnaire for the ethics clearance, we decided that it would be better if we use our time to seek feedback on the quality of the refactorings in a different way. This decision was mainly due to not having a great target audience for our questionnaire, potentially dealing with low-quality feedback that might not help our assessment, and concluding that we could get higher-quality feedback using other methods such as self-assessment and pull requests.
+
+\paragraph{Self-assessment}
+Manually staring at each refactoring and thinking deeply about it is another way to get feedback on the quality of refactorings. This method can be done without external assistance, and does not require waiting for an unknown amount of time to get an unknown amount of feedback. In fact, in general, it does not require motivating external partners. And one can study a benchmark's domain to determine whether one thinks a refactoring is appropriate for that domain. One is fully in charge of the level of detail obtained.
+
+However, this is a self-assessment, and like any other type of self-assessments, it could be vulnerable to unconscious bias. One must be perhaps-uncomfortably honest with oneself when assessing the results of one's tool. Coauthors can help mitigate bias, but they still have a vested interest in the success of the experiment; it is hard to get truly impartial opinions from a self-assessment.
+
+We carried out a self-assessment on 3 of our benchmarks: Gson, Jimfs, and Bootique. For this purpose, it was definitely legitimate to discard all of the refactoring cases causing errors and failures on the test runs; for these benchmarks, that amounted to just 1 refactoring. We found 18 refactoring cases for Gson, five refactorings cased for Jimfs, and ten refactoring cases for Bootique.
+
+The two coauthors independently rated each of the 33 proposed refactorings by assigning each number a rating on a scale of 1--10 for its combination of maintainability, conciseness, readability, understandability, extensibility, and repetition. We then discussed the cases one by one, discussed the quality of that case and our ratings, and wrote down a consensus score for each case.
+
+In our rating system, 5 represented a refactoring that did not change the quality of the test case and that the refactored version had the same overall quality as before. Anything above 5 meant that the refactoring was improving the overall quality of the test method. And anything below 5 meant that the refactoring was decreasing the overall quality of the code.
+
+Consider a specific example from Gson; the tests are ``testExceptionWithoutCause'' and ``testErrorWithoutCause'' methods, both in the ``ThrowableFunctionalTest'' class.
+
+Looking at Figure~\ref{figure:rating-before}, we can see that, before running the tool, the only difference between the two test methods is in a class type (``RuntimeException.class'' vs. ``OutOfMemoryError.class''), and the rest is the same. Now, in Figure~\ref{figure:rating-after}, JTestParametrizer creates a parametrized method (``throwableFunctionalTestTestWithoutCauseTemplate'') that allows us to add similar test cases with different class types.
+
+The refactored code is slightly more maintainable because the shared part of the two test methods is in one place, and when we decide to change something about the scenario of the test, we do not need to worry about keeping the shared part consistent.
+The name of the template method is not ideal, but changing that name to a more meaningful and shorter name such as ``testThrowableWithoutCauseTemplate'' will make the refactored case more concise than the original version.
+The readability and understandability of code are slightly worse due to the increase in the complexity of the code.
+However, the extensibility of the code is higher since now we can easily add a similar test for a new class type. Furthermore, the refactored version has less code repetition.
+
+We assigned a 5 rating for the out-of-the-box version of this refactoring case, but a potential 6. That is, if we change the template method's name to something more meaningful, the overall quality of the refactored code will be (in our opinion) slightly higher than the overall quality of the original version.
+
+\begin{figure}
+\begin{lstlisting}[language=Java]
+  //  ThrowableFunctionalTest.java
+
+  public void testExceptionWithoutCause() {
+    RuntimeException e = new RuntimeException("hello");
+    String json = gson.toJson(e);
+    assertTrue(json.contains("hello"));
+
+    e = gson.
+      fromJson("{'detailMessage':'hello'}", RuntimeException.class);
+    assertEquals("hello", e.getMessage());
+  }
+
+  public void testErrorWithoutCause() {
+    OutOfMemoryError e = new OutOfMemoryError("hello");
+    String json = gson.toJson(e);
+    assertTrue(json.contains("hello"));
+
+    e = gson.
+      fromJson("{'detailMessage':'hello'}", OutOfMemoryError.class);
+    assertEquals("hello", e.getMessage());
+  }
+\end{lstlisting}
+\caption{Rating example: before refactoring}
+\label{figure:rating-before}
+\end{figure}
+
+\begin{figure}
+\begin{lstlisting}[language=Java]
+  //  ThrowableFunctionalTest.java
+
+  public void testExceptionWithoutCause() throws Exception {
+    this.throwableFunctionalTestTestWithoutCauseTemplate(
+      RuntimeException.class);
+  }
+
+  public void testErrorWithoutCause() throws Exception {
+    this.throwableFunctionalTestTestWithoutCauseTemplate(
+      OutOfMemoryError.class);
+  }
+
+  public <TThrowable extends Throwable> void
+      throwableFunctionalTestTestWithoutCauseTemplate(
+      Class<TThrowable> clazzTThrowable) throws Exception {
+      
+    TThrowable e = clazzTThrowable.getDeclaredConstructor(String.class).
+      newInstance("hello");
+    String json = gson.toJson(e);
+    assertTrue(json.contains("hello"));
+    e = (TThrowable) gson.
+      fromJson("{'detailMessage':'hello'}", clazzTThrowable);
+    assertEquals("hello", e.getMessage());
+  }
+\end{lstlisting}
+\caption{Rating example: after refactoring}
+\label{figure:rating-after}
+\end{figure}
+
+When originally developing JTestParametrizer, we included a refactoring technique which we called behaviour parametrization. It seemed to make sense at the time: it allows refactoring calls to methods with different signatures, using an adapter object. Manually constructed examples were promising. However, our self-assessment of cases in our benchmark suite assigned low ratings (e.g. 0s) to behaviour parametrizations: they tended to decrease the overall quality of the code due to decreasing the conciseness, lowering readability, lowering understandability, massively increasing the complexity, and potentially lowering the maintainability of the code. This led us to drop this parametrization from the tool.
+
+We observed that running the tool without behaviour parametrization triggers a lot fewer problems, failures, and errors. Fixing behaviour parametrization would not have been time well spent.
+
+
+\paragraph{Self-assessment discussion}
+Even after removing the 8 behavioural parametrization  cases, the average rating of the other 25 cases was slightly less than 5. This means that even if we discard the behavioral cases, we judged that, on average, our refactorings would decrease the quality of the code instead of increasing it. Furthermore, this was all based on the ratings that we came up with; there was still a possibility that the developers of the projects would be reluctant to accept some of the cases that we rated higher than 5.
+
+\paragraph{Pull Requests}
+
+Creating and submitting pull requests is yet another method of getting feedback on the quality of the refactoring cases or any proposed program transformation in general, and can provide strong evidence for the usefulness of the tool.
+
+A significant advantage of this method is getting feedback from potential users of the JTestParametrizer tool. This feedback is high-value since the code maintainers' opinions are the most important ones about what is in the code. Unlike self-assessment, this feedback is impartial; there will not be any unconscious bias helping the cases. If anything, there might be an unconscious bias against the refactoring cases, as developers might be reluctant to change their code unless the quality of the code after changes is noticeably higher.
+
+However, this method of getting feedback has some disadvantages too. Selecting the right set of changes for an acceptable pull request is a time-consuming process. Pull requests are external feedback, and it will take an unknown amount of time to receive them. To select the right set of changes for a pull request, we need to have enough understanding of the domain of the changes. Even though the feedback we are getting using this method is precious, we have no control over the level of detail of the feedback: it could be just a accept/reject, or a more detailed message.
+
+We decided that the best way to determine whether developers would accept the refactoring cases produced by the JTestParametrizer tool is to seek the developers' feedback by opening pull requests. Furthermore, by manually modifying the cases for a pull request and studying the feedback we get for them, we might receive feedback on what JTestParametrizer should do to be more beneficial for the developers.
+
+When we submit a pull request, a developer will spend their time reviewing our pull request. We must acknowledge some considerations when selecting changes for a pull request to avoid wasting the reviewers' time. Here are some of those considerations in the context of our work:
+
+\begin{enumerate}
+
+  \item We should ensure that the changes that we submit do not cause any errors or failures. This includes both semantic and syntactic errors and failures. Also, we need to manually ensure that the selected modification to the test methods does not change their behaviour.
+
+  \item \label{item:min-quality} We should only select the modifications that, in our opinion, increase the quality of the code. Submitting pull requests is a method for helping the developers fix bugs in their code or increase the quality of their code, and if we send modifications that, even based on our own opinion, decrease the quality of the code only to see what their feedback will be, then that would be unethical and unacceptable.
+
+  \item \label{item:representative} We should avoid selecting many changes for one pull request, and instead, we should select cases that are representative of a group of cases. This is due to two reasons. First, selecting many changes lowers the chance of a pull request getting accepted. Second, if many of the changes in a pull request are very similar, we are potentially wasting the reviewers' time.
+  
+\end{enumerate}
+
+The considerations in items \ref{item:min-quality} and \ref{item:representative} imply that we have to do a manual quality evaluation first. This is a disadvantage of the pull request method for getting feedback, but it is mandatory.
+
+
+\paragraph{Process of Selecting Pull Requests} \label{section:selection-process}
+
+To create a pull request for a benchmark, we did the following:
+
+ \begin{enumerate}
+
+  \item \label{item:selecting-pr-step-one} we manually evaluated all the refactoring cases output by JTestParametrizer;
+
+  \item \label{item:selecting-pr-step-two} we discarded cases that were causing any syntactic or semantic errors or failures;
+
+  \item \label{item:selecting-pr-step-three} we discarded all the refactoring cases self-assessed at less than 5 (decreased the code's overall quality);
+  
+  \item \label{item:selecting-representative} we went over the remaining cases; if two or more refactoring cases were very similar, we only selected the case with the highest rating; and
+  
+  \item \label{item:minor-changes} finally, we went over the remaining cases one more time and recorded and then fixed existing minor issues (see below). 
+\end{enumerate}
+
+There is a judgment call required in deciding how minor a minor fix could be. If we were doing summative evaluation, then there would be an argument for providing raw output. On the other hand, one could argue that one is trying to evaluate how good an ideal version of JTestParametrizer could be, and provide heavily-modified fixes. For our purposes, we decided to carry out method renamings, e.g. changing ``throwableFunctionalTestTestWithoutCauseTemplate'' to ``testThrowableWithoutCauseTemplate''.
+
+
+%% \paragraph{Representative Cases}
+
+%% In step~\ref{item:selecting-representative}, I explained that for the refactoring cases that were very similar, I only selected the one with the highest rating as the representative and discarded the rest. Here, I will go over the factors that made the test refactorings similar.
+
+%% \begin{enumerate}
+
+%%   \item Jun Zhao explained in his thesis that the JTestParametrizer tool uses three different parametrization techniques: ``Type Parameterization'', ``Data Parameterization'', and ``Behavior Parameterization''. We saw an example of ``Behavior Parameterization'' in Figure~\ref{figure:behavioral-after}, an example of ``Data Parameterization'' in Figure~\ref{figure:undetectable-correct}, and an example of Type Parameterization in Figure~\ref{figure:rating-after}.
+  
+%%   Since we decided to discard the refactoring nominees with behavioral differences, we will have four options for each refactoring case as it might or might not have either or both type and data differences. If two of the refactoring cases fall into the same category regarding having or not having type and data differences, then they will be considered somewhat similar.
+  
+%%   \item The test methods involved in a refactoring case can all be in the same class or different classes. If the test methods are not all in the same class, then the JTestParametrizer tool creates a new template class and creates the template method as a public static method in this new template class. The refactoring case used in Figure~\ref{figure:example-one-template} would be an example of this situation.
+
+%%   However, when all the test methods are in the same class, the JTestParametrizer tool creates the template method as a standard public non-static method in the same class. Every refactoring case example so far, except for the one used in Figure~\ref{figure:example-one-template}, is an example of this situation.
+
+%%   Now, if two refactoring cases both fall into the same category regarding all the involved test methods being or not being in the same class, then we would consider those two refactoring cases somewhat similar.
+
+%% \end{enumerate}
+
+%% If two refactoring cases are somewhat similar based on both of these categories, we would consider those refactoring cases similar. That is when one could potentially represent both in the pull request.
+
+%% \subsection{Discussion}
+
+%% To reiterate, in this section, I explained the importance of the feedback that we get from pull requests. I mentioned the three crucial considerations when selecting a pull request: ensuring correctness, ensuring quality, and avoiding repetitive cases. Finally, I went over the process I used to select a pull request and explained the five steps: manual evaluation, discarding cases with errors and failures, discarding low-rated cases, selecting one representative for similar cases, and minor manual modification.
+
+Looking forward, when we are trying to get feedback on what JTestParametrizer could do instead of what it is doing now, we can loosen the restriction allowing only minor manual modifications. Allowing major modifications (that we anticipate to be implementable) is one way to seek user feedback on enhancements before we implement them. If we receive positive user feedback, we could then proceed to implementation. This is arguably similar to the industrial techniques of lo-fi prototypes or Minimum Viable Products.
+
+%% \paragraph{Submitting Pull Requests}
+
+%% In the previous section, I discussed the selection of pull requests. Now, if we submit the same refactoring cases that we got from the process in Section~\ref{section:selection-process}, though the feedback will be valuable, it will only help us to evaluate the quality of the current version of the JTestParametrizer tool.
+
+%% However, submitting pull requests is a powerful method for getting feedback and can help to a much higher extent. By manually modifying the output of the process in Section~\ref{section:selection-process}, we can implement the effects of a feature that is not currently in the JTestParametrizer tool. Then based on the feedback that we get for that manually modified pull request, we will determine whether we should pursue that feature in the tool or not. There is precedent for that in the startup world of a Minimum Viable Product. Different world, but similar concept.
+
+%% This can save much time since the other option is implementing the feature in the tool and evaluating it afterward. Furthermore, the feedback we get from a manually modified pull request will guide us in creating the subsequent manually modified pull request.
+
+Nevertheless, we should not use pull requests as a black box or an oracle. Before submitting a pull request, we must have a good-faith belief that the pull request is improving the code's overall quality. We must always state our clear intention for each pull request in its description. These considerations are crucial, since a developer will review each pull request and put their time and effort into examining it. 
+
+\paragraph{Jimfs Pull Request}
+We present an example pull request that we submitted. In this case, the idea was to use the raw output of the pull request selection process. Furthermore, since the generated template method names were acceptable, we did not do any minor modifications either.
+
+After finishing step~\ref{item:selecting-representative}, there remained four refactoring cases modifying three files. We used all of these cases for this pull request. The goal of this pull request was to get feedback on the quality of the refactoring cases that the current version of the JTestParametrizer tool produces.
+
+We submitted the \href{https://github.com/google/jimfs/pull/159}{Jimfs pull request}\footnote{Double-blind review warning: link to pull request not anonymized} and the feedback that we got for it stated: \begin{quote}``Thanks for the PR. I'm not going to merge it at the moment because it's not clear to me that this is an improvement... reducing duplication is generally good, but not as much so in tests where some amount of duplication can make the expected behavior more clear in each test case. But I'll leave it open for the moment because it's possible this could benefit from reducing duplication to some extent.''\end{quote}
+
+This was valuable feedback regarding the details of the reasoning behind the final decision. It was not clear to the reviewer that the changes improved the overall quality of the code, which was not unexpected since we rated the refactoring cases used for this PR around 6 in the manual evaluation process: we felt that the PR somewhat improved the quality of the code. 
+
+The feedback was clear. The reduction of duplication, improvement in extensibility, or other advantages of our modifications, needs to clearly compensate for the disadvantages, such as the decrease in understandability of the expected behavior of the tests, for the pull request to be a net positive. This could be done either by strengthening the advantages (e.g., more duplication reduction) or reducing the disadvantages (e.g., easier to understand).
+
+%% \paragraph{Learning From our Experience}
+
+%% This chapter used three different processes to get qualitative feedback. This feedback included both the feedback on the current version of the JTestParametrizer tool and early feedback on what the JTestParametrizer tool could do. By studying this feedback, we realized that developers care about certain critical factors when refactoring test methods. We tried to address some of these factors by adding new configurations to the JTestParametrizet tool. Finally, we tried manual modification to get feedback on some non-existent features, which helped us better understand the potential best next step for the JTestParametrizer tool. 
+
+\paragraph{Discussion}
+Out of the three processes that we used to get qualitative feedback, submitting pull requests was the one that benefited us the most and provided us with the most helpful feedback. However, based on our considerations for submitting a pull request, it is impossible to select pull requests without first practicing manual quality evaluation/self-assessment.
+
+Furthermore, although using a questionnaire is a great way to get feedback, questionnaires do not guarantee quality results. Therefore, we decided that using a questionnaire would not be as helpful as the other two processes for our research.
+
+Self-assessment allowed us to conclude that one of the types of refactoring we had implemented, behavioural refactoring, tended to be a net negative. As a result, we removed that type of refactoring from our tool.
+
+We gained valuable lessons from preparing 5 pull requests and receiving feedback from 2 of the 3 requests that we submitted: understandability and readability criteria in a test method are much more valuable than the same criteria in the production code since it is an advantage to understand a test method in isolation without looking elsewhere in the test class. 
+
+%% I also learned that even though reducing duplication is generally good, it is not as crucial in test methods since duplication in tests can make the expected behavior clearer. A reduction of duplication in tests is only valuable if it does not damage the understandability of the tests.
+
+%% Furthermore, refactorings that add to the complexity of the code by creating a new exception handling scenario or creating less useful type parameters will not be welcome by the developer, even if they reduce the code duplication and improve extensibility.
+
+%% \paragraph{Potential Configurations for the Tool}
+
+%% After manual quality evaluation, we realized that the refactoring cases that use behavioral parametrization have the lowest rating and damage the code's overall quality. With that in mind, we added a new configuration to the JTestParametrizer tool that discards the behavioral nominees.
+
+%% Next, we got feedback on the complexity of the refactoring cases due to creating new exception handlings and less useful type parameters. Now, even though the adverse effect of these two transformations is not as apparent as the adverse effect of behavioral parametrization, it might be a good idea to add two new configurations to the JTestParametrizer tool. One configuration would discard the refactoring cases that introduce new exception handling cases, and the other would discard the refactoring cases with type parametrization.
+
