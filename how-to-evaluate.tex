@@ -7,12 +7,22 @@ such tools.
 
 The designer of the tool will have a usage scenario for the
 transformations produced by the tool. This usage scenario is necessary
-but not sufficient to establish that the tool is useful.  It is simply
+but not sufficient to establish that the tool is useful. It is simply
 a first step---at this level of abstraction, the usage scenario is
 simply something that a reader considers so that they can decide,
 based on their experience, whether the tool seems like it would be
 useful to them or not.  It is still too abstract to make concrete
 decisions about.
+
+Exploratory, or pilot, studies can be useful to establish that the
+anticipated usage scenarios actually occur in the wild. For instance,
+we have had the unfortunate experience of designing a static analysis,
+and then having a hard time finding code to which it was
+applicable. \cite{beckman11:_empir_study_objec_protoc_wild}, on the
+other hand, have conducted an empirical study of 15 benchmark programs
+and 2 million lines of code, establishing that 7.2\% of types defined
+object protocols, and 13\% of classes were clients of such types.
+Such examples also serve as concrete examples of a tool's usefulness.
 
 Tool designers can solicit opinions along a continuum from abstract
 opinions to concrete judgments. There is a continuum between the
@@ -78,14 +88,6 @@ here) are not the same as tool evaluations---the language designers
 make the design decisions upfront, and there is no analogy to the
 filtering-and-selecting steps discussed above.
 
-\citeN{coblenz20:_can_advan_type_system_be_usabl} empirically
-investigated the usability of the Obsidian language and in particular
-its ownership, typestate, and assets features. They describe a
-reasonably tractable methodology for carrying out empirical
-evaluations of language features by assigning short programming tasks
-to developers and evaluating their success at those tasks using their
-language, Obsidian, versus using another language, Solidity.
-
 The $i^*$ modeling framework is a modeling language used in the early
 system modeling phase to help understand the problem domain. This
 framework has been widely used in research and some industrial
@@ -99,12 +101,6 @@ lessons learned from this experience showing the strengths and
 weaknesses of $i^*$, which they hope will play a crucial role in
 guiding extensions of the $i^*$ framework.
 
-As an example of a questionnaire, \citeN{laugwitz08:_const} explain
-how they designed a user experience questionnaire to get feedback on
-six factors: Attractiveness, Perspicuity, Efficiency, Dependability,
-Stimulation, and Novelty. Their results indicated a satisfying level
-of reliability and construct validity (the questionnaire measures what
-it is supposed to).
 
 Another method for getting feedback on the quality of a software tool
 and qualitative evaluation is manual self-assessment of results by the

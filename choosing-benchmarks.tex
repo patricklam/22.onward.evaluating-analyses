@@ -8,7 +8,16 @@ In this section, we discuss tips that we have found to be useful when choosing b
 Industrial consortia and researchers have created collections of benchmarks for various purposes. SPEC, the Standard Performance Evaluation Corporation, contributed an early Java benchmark collection, SPEC JVM 98~\cite{SPECjvm98} and updated it in 2008~\cite{SPECjvm2008}. SPEC JVM was designed to measure the performance of both Java virtual machine client platforms and hardware systems. Later, researchers introduced the DaCapo benchmark collection~\cite{DaCapo_inproceedings}, consisting of open-source, real-world Java applications. 
 They introduced new value, time-series, and statistical metrics for static and dynamic properties such as code complexity, code size, heap composition, and pointer mutations. These benchmarks aimed to empirically evaluate performance and memory management efficiency of Java virtual machines.
 
-From a more software engineering point of view, the Qualitas Corpus~\cite{QualitasCorpus} is, per the authors, ``[\ldots] a curated collection of software systems intended for analyzing empirical studies of code artifacts with the primary goal of providing a resource that supports reproducible studies of software.''. However, Qualitas's open-source Java software systems are not necessarily executable. Thus, XCorpus~\cite{XCorpus} is ``a set of 76 executable, real-world Java programs, including a subset of Qualitas Corpus''. To support execution, ``[XCorpus] uses a harness that is a combination of built-in and generated test cases, resulting in a branch coverage that is significantly better than what is available from DaCapo.''.
+From a more software engineering point of view, the Qualitas Corpus~\cite{QualitasCorpus} is, per the authors, ``[\ldots] a curated collection of software systems intended for analyzing empirical studies of code artifacts with the primary goal of providing a resource that supports reproducible studies of software.''. However, Qualitas's open-source Java software systems are not necessarily executable. Thus, XCorpus~\cite{XCorpus} is ``a set of 76 executable, real-world Java programs, including a subset of Qualitas Corpus''. To support execution, ``[XCorpus] uses a harness that is a combination of built-in and generated test cases, resulting in a branch coverage that is significantly better than what is available from DaCapo.''. In other research, we have used the DUETS benchmarks~\cite{durieux21} as a curated collection of pairs of libraries and clients.
+
+Program transformation tools can be viewed as software engineering
+tools.  Software engineering researchers have written about best
+practices for sampling.  Our present discussion is, in some sense, a
+discussion about how to draw a sample of
+benchmarks. \citeN{baltesar:_sampl_softw_engin_resear} survey recent
+published works in software engineering and investigate how these works sample code
+artifacts, people, and non-code artifacts.  They recommend best
+practices for sampling to ensure generalizability of research results.
 
 \subsection{Filters (generic)}
 Different benchmarks are going to be more or less suitable for exploring different aspects of tools. We acknowledge that being too selective with benchmarks can amount to unfair cherry-picking. However, we claim that applying principled and defensible filters to a large initial benchmark set can be a reasonable way to proceed. Indeed, one might legitimately apply different filters for different intended uses of the benchmarks: if simply collecting quantitative data, one could cast the net broadly and include almost all of the benchmarks. (For instance, when evaluating compiler performance and aiming to produce valid claims, one should usually not cherry-pick benchmarks.) On the other hand, for labour-intensive case studies where one is hoping to submit pull requests, one would want to filter aggressively---it would be desirable to filter as objectively as possible, but being inclusive is not as important. Documenting the filtering criteria would be a best practice, though.
@@ -56,4 +65,90 @@ We also add additional filters to simplify the process of collecting data. We th
 \item benchmark test runs take less than an hour to complete on our machine, to allow reasonably fast iteration, given the fact that we run benchmark test suites repeatedly.
 \end{enumerate}
 We carefully considered the filters that we applied. In our case, we do not believe that they unduly favour our tool. We advocate for a well-thought-out benchmark selection process based on documented selection criteria.
+
+\subsection{Benchmark Suite Construction Example}
+We next discuss how we constructed a benchmark suite for evaluating JTestParametrizer, using what we explained in Section~\ref{sec:selecting-benchmarks}.
+
+The primary universe of projects that we used were from GitHub lists of suggested open-source Java projects maintained by community members. Specifically, we used lists from \href{https://medium.com/issuehunt/50-top-java-projects-on-github-adbfe9f67dbc}{IssueHunt}, \href{https://awesomeopensource.com/projects/maven-plugin}{awesomeopensource}, and \href{https://www.overops.com/blog/the-hitchhikers-guide-to-github-13-java-projects-you-should-try/}{Henn Idan} to find potential open-source Java project candidates. 
+We also considered all the open-source Java projects from the \href{https://github.com/google/?q=&type=&language=java&sort=stargazers}{Google}, \href{https://github.com/spotify/?q=&type=&language=java&sort=stargazers}{Spotify}, \href{https://github.com/apache/?q=&type=&language=java&sort=stargazers}{Apache}, \href{https://github.com/airbnb/?q=&type=&language=java&sort=stargazers}{Airbnb}, and \href{https://github.com/Netflix?q=&type=&language=java&sort=stargazers}{Netflix} companies on GitHub. We filtered out projects where the number of stars plus forks was less than 800. This left us with over 100 candidate projects.
+
+We also added benchmarks from previous iterations of the work, as documented in a master's thesis, to ensure that our results remained comparable with previously-reported results.
+
+\paragraph{Benchmark Requirements Checklist}
+Checklists are a helpful way to quickly evaluating things (empirical evaluations, as proposed by~\citeN{berger19:_check_manif_empir_evaluat}, and as inspired by \cite{gawande09:_check_manif}). In particular, using a checklist is an effective way to not skip steps in a routine process. We developed and used the following checklist:
+
+\begin{enumerate}
+  \item Ensure that the candidate is an open-source Java project built with Maven.
+  \item Ensure that the candidate contains tests.
+  \item Ensure that the candidate builds on our machines and that all the test runs pass successfully; if this is not the case, spend up to one hour fixing the issues.
+  \item Ensure that the candidate builds in Eclipse; if this is not the case, spend one hour fixing the issues.
+  \item Process the candidate using the Deckard clone detection tool, and then use the cluster files to create an Excel file of potential nominees for refactoring. Check that the created XLS file is not empty (there is at least 1 nominee for refactoring).
+\end{enumerate}
+
+We considered the projects that satisfied all of these conditions for inclusion in our set of benchmarks. We additionally filtered according to the number of refactoring nominees reported and refactored.
+
+\paragraph{The Benchmarks}
+Table~\ref{table:benchmarks} lists the benchmarks that we selected,
+along with their properties. This data provides an overview of project
+size (e.g. lines of code\footnote{via SLOCCount, \url{https://dwheeler.com/sloccount/}}), popularity (stars and forks), and vitality (open and
+closed pull requests). Note that the table contains 14 repositories and 18 benchmarks; 2 benchmarks are subprojects of the same GitHub repository, and we used two versions of three of the projects (Gson, Bootique, Joda-Time) as separate benchmarks.
+We also collected information about the git commit ID (version); number of tests and test failures; and the number of refactoring nominees, but omit them here as not sufficiently related to the purpose of this work.
+
+\begin{table*}[h!]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l r r r r r r r} 
+ Repository & Stars & Forks & Lines of Java & GitHub Issues & Contributors & Closed PRs & Open PRs \\ [0.5ex] 
+ \hline\hline
+ Gson & 20k & 3.9k & 25.6k & 503 & 114 & 358 & 151 \\ 
+ Jimfs & 2k & 245 & 17.4k & 26 & 23 & 96 & 4 \\
+ Bootique & 1.3k & 286 & 18.5k & 31 & 17 & 84 & 4 \\
+ Joda-time & 4.7k & 888 & 86.5k & 23 & 77 & 160 & 3 \\
+ Commons-lang & 2.2k & 1.3k & 85.1k & - & 161 & 682 & 107 \\ 
+ Commons-io & 800 & 519 & 41.5k & - & 76 & 232 & 29 \\
+ Commons-collections & 506 & 339 & 67.6k & - & 57 & 215 & 28 \\
+ Jfreechart & 732 & 296 & 133.5k & 65 & 22 & 75 & 65 \\
+ Netty & 27.4k & 13.5k & 312.1k & 451 & 531 & 5,963 & 43 \\ 
+ Checkstyle & 6.2k & 8k & 286.5k & 642 & 290 & 6,530 & 41 \\
+ Git-commit-id-maven-plugin & 1.3k & 253 & 3.7k & 23 & 73 & 241 & 3 \\
+ Docker-maven-plugin & 2.6k & 556 & 2.5k & 10 & 38 & 160 & 11 \\
+ Maven & 2.7k & 2k & 91.9k & - & 143 & 428 & 55 \\
+ Mybatis-3 & 16.1k & 10.9k & 60.8k & 123 & 182 & 1,156 & 55 \\ [1ex] 
+\end{tabular}}
+\caption{Numeric Characteristics of Benchmarks}
+\label{table:benchmarks}
+\end{table*}
+
+
+
+%% Table \ref{table:refactoring_nominees} lists the necessary information that we retrieved for each benchmark before running the JTestParametrizer tool on that benchmark. This information includes the version of that benchmark, the number of Java code lines for that specific version using SLOCCount, the number of tests run, failures, errors, and skipped from building that benchmark and running all the tests on my macOS machine, and finally, the number of refactoring nominees that I got from running a process on the cluster files that I got from running the Deckard clone detection tool on that version of the benchmark.
+
+%% \begin{table}[h!]
+%% \centering
+%% \resizebox{\textwidth}{!}{
+%% \begin{tabular}{l c r r r r r r} 
+%%  Repository & Version & Lines of Java & Tests run & Failures & Errors & Skipped & Nominees \\ [0.5ex] 
+%%  \hline\hline
+%%  Gson & f649e05 & 25193 & 1050 & 0 & 0 & 1 & 39 \\ 
+%%  Gson & f319c1b & 25269 & 1063 & 0 & 0 & 1 & 42 \\ 
+%%  Jimfs & 3c9d8ba & 17472 & 5834 & 0 & 0 & 0 & 45 \\
+%%  Bootique & d0648eb & 18589 & 231 & 0 & 0 & 0 & 22 \\
+%%  Bootique & 9939bc6 & 18591 & 228 & 0 & 0 & 0 & 23 \\
+%%  Joda-time & 0ae5311 & 86138 & 4222 & 0 & 0 & 0 & 261 \\
+%%  Joda-time & 27edfff & 86536 & 4238 & 0 & 0 & 0 & 260 \\
+%%  Commons-lang & 425d808 & 77224 & 4068 & 0 & 0 & 5 & 154 \\ 
+%%  Commons-io & e4ff4a5 & 40336 & 1852 & 0 & 0 & 6 & 32 \\
+%%  Commons-collections & 7d8b979 & 67647 & 16923 & 0 & 0 & 4 & 47 \\
+%%  Jfreechart & d03e68a & 132452 & 2176 & 0 & 0 & 0 & 124 \\
+%%  Netty/Codec-http & e69107c & 41014 & 858 & 0 & 0 & 0 & 47 \\ 
+%%  Netty/Buffer & e69107c & 33564 & 10458 & 0 & 0 & 1198 & 20 \\ 
+%%  Checkstyle & 6cbc1dc & 255741 & 3528 & 0 & 0 & 0 & 130 \\
+%%  Git-commit-id-maven-plugin & 4a1ac8f & 7238 & 214 & 0 & 0 & 1 & 4 \\
+%%  Docker-maven-plugin & 84020ac & 2434 & 59 & 0 & 0 & 0 & 7 \\
+%%  Maven/Maven-core & 3fabb63 & 38653 & 388 & 0 & 0 & 4 & 26 \\
+%%  Mybatis-3 & 1d82865 & 60825 & 1675 & 0 & 0 & 14 & 26 \\ [1ex] 
+%% \end{tabular}}
+%% \caption{Benchmarks' Refactoring Nominees}
+%% \label{table:refactoring_nominees}
+%% \end{table}
 

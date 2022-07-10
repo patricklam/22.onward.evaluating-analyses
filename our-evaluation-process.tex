@@ -1,4 +1,4 @@
-\section{Our Evaluation Process}
+\section{Examples of Evaluation Processes}
 \label{sec:our-evaluation-process}
 
 We next discuss how we performed quantitative and qualitative
@@ -82,7 +82,15 @@ that users don't want. Easier to remove the feature.
 We explored several ways of seeking feedback about the quality of our
 refactorings.
 
-\paragraph{The Questionnaire}
+\paragraph{Questionnaires}
+As an example of a questionnaire, \citeN{laugwitz08:_const} explain
+how they designed a user experience questionnaire to get feedback on
+six factors: Attractiveness, Perspicuity, Efficiency, Dependability,
+Stimulation, and Novelty. Their results indicated a satisfying level
+of reliability and construct validity (the questionnaire measures what
+it is supposed to).
+
+
 Using a questionnaire is one way of getting feedback. It is
 inexpensive, easy to analyze, and scalable. However, back to the
 ``which humans'' question, a questionnaire does not come with any
@@ -288,6 +296,27 @@ The feedback was clear. The reduction of duplication, improvement in extensibili
 %% \paragraph{Learning From our Experience}
 
 %% This chapter used three different processes to get qualitative feedback. This feedback included both the feedback on the current version of the JTestParametrizer tool and early feedback on what the JTestParametrizer tool could do. By studying this feedback, we realized that developers care about certain critical factors when refactoring test methods. We tried to address some of these factors by adding new configurations to the JTestParametrizet tool. Finally, we tried manual modification to get feedback on some non-existent features, which helped us better understand the potential best next step for the JTestParametrizer tool. 
+
+\subsection{User Studies}
+\citeN{coblenz20:_can_advan_type_system_be_usabl} used user studies to empirically
+investigated the usability of the Obsidian language and in particular
+its ownership, typestate, and assets features. They describe a
+reasonably tractable methodology for carrying out empirical
+evaluations of language features by assigning short programming tasks
+to developers and evaluating their success at those tasks using their
+language, Obsidian, versus using another language, Solidity.
+
+Research in software engineering and software visualization also use
+user studies extensively.  For instance, \citeN{anslow13:_sourc} had
+experimental subjects (graduate students) carry out a task using their
+SourceVis visualization tool, and qualitatively and quantitatively
+evaluated the performance of the subjects.
+
+If a program transformation tool is task-based, then user studies work
+well for evaluating that tool. A program repair tool can also help developers
+repair their programs and would be a good candidate for a user study.
+More open-ended tools that aim to improve code quality are more difficult
+to evaluate using user studies.
 
 \paragraph{Discussion}
 Out of the three processes that we used to get qualitative feedback, submitting pull requests was the one that benefited us the most and provided us with the most helpful feedback. However, based on our considerations for submitting a pull request, it is impossible to select pull requests without first practicing manual quality evaluation/self-assessment.

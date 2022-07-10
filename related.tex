@@ -1,40 +1,37 @@
 \section{Related Work}
 \label{sec:related}
-We continue our discussion from the Introduction, where we briefly
-discussed evaluations of programming language designs. We next discuss
-more evaluations---here, of language implementations and visualization
+We continue our discussion of evaluations from the Introduction, where we 
+discussed programming language designs. We now
+discuss evaluations of language implementations and of visualization
 tools.
 
 To our knowledge, the first empirical evaluations in the programming
 languages fields were of programming language implementations
-(e.g. compilers, and, later, Just-in-Time engines); as we mentioned
-earlier, SPEC released benchmark suites to evaluate the performance of
-these implementations. The influence of this early focus continues
+(e.g. compilers, and, later, Just-in-Time engines); 
+SPEC was formed to curate nominally-impartial benchmark suites,
+which would evaluate the performance of
+computer systems and programming language implementations. 
+The influence of this early focus continues
 today, with Blackburn and 17 other prominent programming languages
 researchers
 authoring~\cite{blackburn16:_truth_whole_truth_nothin_but_truth}. That
 work describes errors (``sins'') in empirical evaluation of programming
-languages implementations and systems.  Specifically, it proposed a
+language \emph{implementations and systems}.  Specifically, it proposed a
 framework that identifies two categories of sins: sins of reasoning,
 leading to unsound claims; and sins of exposition, leading to poorly
-specified claims and evaluations. Their framework provides
+specified claims and evaluations. Their framework (and 
+checklist~\cite{berger19:_check_manif_empir_evaluat}) provides
 practitioners with methodological techniques for evaluating the
-integrity of their work or the work of others.  Still, the evaluations
-that the work of Blackburn et al discuss are all
-performance-related. The present work focusses more on holistic
+integrity of their work or the work of others.  However, Blackburn et al's
+recommendations are most appropriate for
+performance-related evaluations of implementations. 
+The present work focusses more on holistic
 evalutaions of designs.
 
-Program transformation tools can be viewed as software engineering tools.
-There is discussion in the software engineering community about sampling as well:
-\citeN{baltesar:_sampl_softw_engin_resear} survey recent published works in software
-engineering and how they sample code artifacts, people, and non-code artifacts.
-They recommend best practices for sampling to ensure generalizability of research
-results.
-
-Moving farther afield from the field of programming languages, and yet
-much closer to our goals,
+Moving farther afield from the field of programming languages, but
+much closer to our present goals,
 \citeN{merino18:_system_liter_review_softw_visual_evaluat} survey
-published work in the software visualization tools space. As with
+published work about software visualization tools. As with
 program transformation tools, software visualizatoin tools operate in
 an open-ended space where it is almost impossible to make clear
 quantitative judgments of work. They investigate evaluation strategies
