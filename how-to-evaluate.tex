@@ -1,17 +1,63 @@
 \section{Evaluating Languages and Tools}
 \label{sec:how-to-evaluate}
 As we've discussed, evaluating the usefulness of many program
-transformation tools requires some subjective judgment. In this
-section, we outline possible ways to solicit judgment of and to evaluate
-such tools.
+transformation tools requires some subjective judgment. 
+Language evaluations (and in particular the ones we mention here) are
+quite different from tool evaluations---language designers make
+the design decisions upfront, potentially modifying the language
+as they work through case studies, while tool designers should have
+in mind a corpus of programs to transform.
 
-Language evaluations (and in particular the ones we study here) are
-quite different from tool evaluations---the language designers make
-the design decisions upfront, and there is no language design analogy
-to the filtering-and-selecting steps (akin to steps in Information
-Retrieval) that we will discuss.
+We formulate the evaluation question as follows:
+\begin{center}
+\emph{How} is the tool being evaluated, on \emph{which subjects},
+and by~\emph{who}?
+\end{center}
+This question works for all tools, but we will focus on program
+transformation tools. The goal of the tool developers is to choose
+an evaluation that will show that the tool is useful on an important
+set of subjects for an appropriate audience.
 
-The designer of the tool will have a usage scenario for the
+\subsection{Concrete Evaluation Workflow}
+We now consider the entire workflow involved in choosing concrete
+program transformation suggestions to present to a developer. To present
+a program transformation tool, researchers would explain decisions made during
+the workflow and justify why they made those decisions, showing how they fit
+with their
+desired evaluation criteria.
+
+\paragraph{Filtering bad candidates.} Typically, a
+program transformation tool generates a large set of candidate
+transformations. Depending on the tool, some of these transformations
+are inappropriate and need to be filtered out. For instance, a
+refactoring tool should only propose semantics-preserving
+transformations; on the other hand, we would expect a program repair
+tool to change the semantics of the program being repaired.
+From a program analysis point of view, we are filtering out false
+positives that our approximation proposes as candidates.
+
+\paragraph{Selecting good candidates.} In any case, even after ruling out 
+inappropriate transformations, the tool would still typically have a large
+set of legal candidates to consider, and must select a tractable subset of the
+candidates to show to the user. This selection process is a key factor
+in the usability of the tool, and is one of the key lessons reported
+in the Tricorder
+work~\cite{sadowski18:_lesson_build_static_analy_tools_googl}.
+(Tricorder passes on developer feedback to analysis writers
+and expects each analysis to return mostly-actionable results, i.e.
+to have low false-positive rates).
+In general, promising tools may fail to be useful in practice because the
+selection is not tuned to users' needs.
+
+\paragraph{Evaluating the results.} At this stage, a program
+transformation tool would have generated a ranked set of results on a
+benchmark. The usefulness of the tool is in large part determined
+by how it produces this ranked set of results.
+
+\subsection{How, Which, and Who?}
+We now return to the evaluation question, starting with the ``how'' subquestion.
+
+\paragraph{How to evaluate?} The designer of the tool will have a usage scenario for the
 transformations produced by the tool. This usage scenario is necessary
 but not sufficient to establish that the tool is useful. It is simply
 a first step---at this level of abstraction, the usage scenario is
@@ -41,8 +87,29 @@ evaluate actual stakeholder usage once the tool has been deployed.
 In general, language design heavily relies on case studies.
 For instance, the creators of the Gator graphics programming language~\cite{geisler20:_geomet_types_graph_progr} used 8 self-created case studies to advocate for the language; the case studies serve to showcase language features, both in terms of expressiveness and in terms of potential bugs avoided.
 
-Returning to the context of program transformation tools, exploratory, or pilot, studies can be useful to establish that the
-anticipated usage scenarios actually occur in the wild. For instance,
+Tool designers can solicit opinions along a continuum from abstract
+opinions to concrete judgments. There is a continuum between the
+abstract opinion ``would tool T be useful,'' through to ``do you
+support this usage scenario X'', all the way to the concrete ``is
+specific proposed transformation Y useful?''
+
+Questionnaires and user studies are two ways to solicit
+information. In both cases, it is difficult to find an appropriate
+target audience; ideally, the audience would provide engaged feedback
+on the tool, but that is not always obvious.  Questionnaires can be
+open-ended or closed-ended. Closed-ended questionnaries can yield
+easy-to-summarize but coarse information, while open-ended
+questionnaires require more effort from participants to answer and
+more effort from researchers to analyze. User studies involve more
+work to set up than questionnaires but can also provide more
+information.
+
+\paragraph{Which benchmarks?} Benchmark selection is important,
+and we will discuss it in Section~\ref{sec:selecting-benchmarks}.
+
+Exploratory, 
+or pilot, studies can be useful to establish that the
+anticipated usage scenarios actually occur in the wild, though. For instance,
 we have had the unfortunate experience\footnote{Citation omitted for double-blind review.} of designing a static analysis,
 and then having a hard time finding code to which it was
 applicable. \cite{beckman11:_empir_study_objec_protoc_wild}, on the
@@ -51,45 +118,8 @@ and 2 million lines of code, establishing that 7.2\% of types defined
 object protocols, and 13\% of classes were clients of such types.
 Such examples also serve as concrete examples of a tool's usefulness.
 
-Tool designers can solicit opinions along a continuum from abstract
-opinions to concrete judgments. There is a continuum between the
-abstract opinion ``would tool T be useful,'' through to ``do you
-support this usage scenario X'', all the way to the concrete ``is
-specific proposed transformation Y useful?''
 
-\subsection{Concrete Evaluation Workflow}
-We now consider the entire workflow involved in choosing concrete
-program transformation suggestions to present to a developer. To present
-a program transformation tool, researchers would explain decisions made during
-the workflow and justify why they made those decisions.
-
-\paragraph{Filtering bad candidates.} Typically, a
-program transformation tool generates a large set of candidate
-transformations. Depending on the tool, some of these transformations
-are inappropriate and need to be filtered out. For instance, a
-refactoring tool should only propose semantics-preserving
-transformations; on the other hand, we would expect a program repair
-tool to change the semantics of the program being repaired.
-From a program analysis point of view, we are filtering out false
-positives that our approximation proposes as candidates.
-
-\paragraph{Selecting good candidates.} In any case, even after ruling out 
-inappropriate transformations, the tool would still have a large
-set of legal candidates to consider, and must select some of the
-candidates to show to the user. This selection process is a key factor
-in the usability of the tool, and is one of the key lessons reported
-in the Tricorder
-work~\cite{sadowski18:_lesson_build_static_analy_tools_googl}.
-(Tricorder passes on developer feedback to analysis writers
-and expects each analysis to return mostly-actionable results, i.e.
-to have low false-positive rates).
-In general, promising tools may fail to be useful in practice because the
-selection is not tuned to users' needs.
-
-\paragraph{Evaluating the results.} At this stage, a program
-transformation tool would have generated a ranked set of results on a
-benchmark.  
-
+\paragraph{Who evaluates?}
 A key question is then: which humans should evaluate the
 results of the tool?  Possible answers include the researchers
 developing the tool; arbitrary developers; or the developers of
@@ -113,17 +143,6 @@ the tool developers). Nevertheless, they provide some information
 about which factors are the most crucial for the quality of a tool
 from the potential customers' point of view. Doing a good job here
 does take time.
-
-Along with ``which humans'', another key question is how to solicit
-information from the humans. Questionnaires and user studies are two
-ways to ask solicit information. In both cases, it is difficult to
-find an appropriate target audience; ideally, the audience would
-provide engaged feedback on the tool, but that is not always obvious.
-Questionnaires can be open-ended or closed-ended. Closed-ended
-questionnaries can yield easy-to-summarize but coarse information,
-while open-ended questionnaires require more effort from participants
-to answer and more effort from researchers to analyze. User studies
-are more involved than questionnaires but can also provide more information.
 
 At the limit, perhaps the
 best way to show that a tool in this space is useful in practice is by
