@@ -10,8 +10,13 @@ in mind a corpus of programs to transform.
 
 We formulate the evaluation question as follows:
 \begin{center}
-\emph{How} is the tool being evaluated, on \emph{which subjects},
+\fbox{
+\begin{minipage}{.6\columnwidth}
+\emph{How} is the tool being evaluated, \\
+on \emph{which subjects},\\
 and by~\emph{who}?
+\end{minipage}
+}
 \end{center}
 This question works for all tools, but we will focus on program
 transformation tools. The goal of the tool developers is to choose
@@ -43,8 +48,9 @@ candidates to show to the user. This selection process is a key factor
 in the usability of the tool, and is one of the key lessons reported
 in the Tricorder
 work~\cite{sadowski18:_lesson_build_static_analy_tools_googl}.
-(Tricorder passes on developer feedback to analysis writers
-and expects each analysis to return mostly-actionable results, i.e.
+(Tricorder implements a feedback loop where it passes on developer feedback 
+to analysis writers, delegating selection to the analyses, and
+expecting each analysis to return mostly-actionable results, i.e.
 to have low false-positive rates).
 In general, promising tools may fail to be useful in practice because the
 selection is not tuned to users' needs.
@@ -52,7 +58,8 @@ selection is not tuned to users' needs.
 \paragraph{Evaluating the results.} At this stage, a program
 transformation tool would have generated a ranked set of results on a
 benchmark. The usefulness of the tool is in large part determined
-by how it produces this ranked set of results.
+by how it produces this ranked set of results and how well this ranked set
+matches developer needs.
 
 \subsection{How, Which, and Who?}
 We now return to the evaluation question, starting with the ``how'' subquestion.
@@ -93,8 +100,8 @@ abstract opinion ``would tool T be useful,'' through to ``do you
 support this usage scenario X'', all the way to the concrete ``is
 specific proposed transformation Y useful?''
 
-Questionnaires, interviews, and user studies are some ways to solicit
-information. In both cases, it is difficult to find an appropriate
+Questionnaires, interviews, and user studies are some ways to solicit opinions. 
+Generally, it is difficult to find an appropriate
 target audience; ideally, the audience would provide engaged feedback
 on the tool, but that is not always obvious.  Questionnaires can be
 open-ended or closed-ended. Closed-ended questionnaries can yield
@@ -102,8 +109,9 @@ easy-to-summarize but coarse information, while open-ended
 questionnaires require more effort from participants to answer and
 more effort from researchers to analyze. Moving beyond open-ended
 questionnaires, interviews are another way of getting feedback
-from an audience. Open-ended questionnaires and interviews can be 
-analyzed using a grounded theory framework~\cite{glaser67:_discov_groun_theor}.
+from an audience. Some of the ways that open-ended questionnaires and interviews can be 
+analyzed (qualitatively) are through content analysis coding, or 
+using a grounded theory framework~\cite{glaser67:_discov_groun_theor}.
 \citeN{lubin21:_how} carry out interviews, analyze them using grounded
 theory, and carry out additional user experiments (user studies)
 to validate their findings.
@@ -126,7 +134,7 @@ Such examples also serve as concrete examples of a tool's usefulness.
 
 
 \paragraph{Who evaluates?}
-A key question is then: which humans should evaluate the
+A key remaining question is: which humans should evaluate the
 results of the tool?  Possible answers include the researchers
 developing the tool; arbitrary developers; or the developers of
 particular software projects.
@@ -159,12 +167,12 @@ When getting external feedback about a tool (e.g. questionnaires or
 submitting merge requests), tool developers must consider ethics
 (including Institutional Review Board approval when required). Violations of ethical
 standards can cause severe consequences. For instance, the
-University of Minnesota got a university-wide ban for contributing to
+University of Minnesota got a university-wide ban from contributing to
 the Linux kernel. One of their systems security researchers submitted
-merge requests to the Linux kernel for a hidden purpose that they did
-not state, which the Linux Foundation deemed
-unethical. Linux developers were offended that the university had purposely
-wasted the reviewers' time. This resulted in a university-wide ban
+dubious merge requests to the Linux kernel for a hidden purpose that they did
+not state. The Linux Foundation deemed this
+unethical: Linux developers were offended that the university had 
+wasted the reviewers' time on purpose. This resulted in a university-wide ban
 following an email from Linux Foundation fellow Greg Kroah-Hartman
 which stated: ``I suggest you find a different community to do
 experiments on,'' and ``You are not welcome

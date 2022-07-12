@@ -2,9 +2,11 @@
 \label{sec:our-evaluation-process}
 
 We next discuss examples of quantitative and qualitative
-evaluations, including from our case study. We also include
-examples from the literature to illustrate more kinds
-of evaluations.
+evaluations. We include evaluations from the literature as well as
+from our case study. We specifically discuss what to put into
+a quantitative evaluation, as well as qualitative evaluations
+including questionnaires/surveys, self-assessments, pull requests,
+and user studies.
 
 In our case study, we used different benchmarks for
 different purposes. We used all 18 benchmarks to collect quantitative
@@ -16,7 +18,7 @@ JTestParametrizer is not yet free of bugs; we intensively used a
 subset of 6 benchmarks (Gson, Joda-time, Jfreechart, Commons-lang,
 Bootique, and Jimfs) to debug our tool.  When we encountered a bug,
 then we documented those incidents, and in most cases, tried to find
-the source of the problem and fix the JTestParametrizer tool or moved
+the source of the problem and fix the JTestParametrizer tool, or moved
 on. Of course, a lack of errors still does not imply that
 JTestParametrizer is free of bugs; for a sufficiently large benchmark suite,
 though, we would have some confidence that it was reasonably robust.
@@ -52,15 +54,17 @@ In the case of \cite{dura21:_javad}, the authors compare their new {\sc JavaDL} 
 With respect to JTestParametrizer,
 Table~\ref{table:quantitative_results} presents a subset of the
 quantitative results that we collected. The most important results are
-the counts of refactoring nominees and actual refactored tests. We
+the counts of refactoring nominees and actual refactored tests. 
+
+We
 also report the number of JParametrizer run-time errors; compile-time
 errors for the transformed code; and test failures/skipped/errors
-after transformation.
-
-All of those also-reported numbers should be 0, or the tool should be
+after transformation. All of those also-reported numbers should be 0, or the tool should be
 able to ensure that such nominees were not actually refactored; being
 selective with one's benchmark set shouldn't mean cherry-picking
-results in that way. Yet, we typically describe our tools as research
+results in that way. 
+
+Yet, we typically describe our tools as research
 prototypes, and fixing all of the bugs can take weeks or even months;
 this may not be a productive use of researcher time, especially as
 these bugs don't affect anything fundamental in the system as
@@ -87,9 +91,9 @@ the potential usefulness of a tool.
 
 \subsection{Qualitative Evaluation}
 It is a challenging intellectual exercise, though eventually futile,
-to aim to remove all bugs from a system. This exercise is only useful
+to aim to remove all bugs from a system. But this exercise is only useful
 if the system itself is useful. We realized that, in JTestParametrizer's
-case, we needed to start to evaluate its usefulness, sooner rather than later.
+case, we needed to start to evaluate its usefulness sooner rather than later.
 This tool would only be useful if users perceived that it indeed enhanced the
 quality of test cases.
 
@@ -129,12 +133,12 @@ produce results?''. In a second phase, the authors then compared the
 survey responses to the current capabilities of the tools (and found
 that the tools were not up to developer expectations).
 
-As another example of a questionnaire, \citeN{laugwitz08:_const} explain
-how they designed a user experience questionnaire to get feedback on
-six factors: Attractiveness, Perspicuity, Efficiency, Dependability,
-Stimulation, and Novelty. Their results indicated a satisfying level
-of reliability and construct validity (the questionnaire measures what
-it is supposed to).
+As another example of a questionnaire, \citeN{laugwitz08:_const}
+designed a questionnaire to measure user experience (of any product).
+Their questionnaire solicits feedback on
+six factors of the product: Attractiveness, Perspicuity, Efficiency, Dependability,
+Stimulation, and Novelty. They reported a ``satisfactory level
+of reliability and construct validity.''
 
 %% We decided to create a questionnaire to get feedback on the quality of the refactored test cases. Our questionnaire included:
 
@@ -237,13 +241,13 @@ We observed that running the tool without behaviour parametrization triggers a l
 
 
 \paragraph{Self-assessment discussion}
-Even after removing the 8 behavioural parametrization  cases, the average rating of the other 25 cases was slightly less than 5. This means that even if we discard the behavioral cases, we judged that, on average, our refactorings would decrease the quality of the code instead of increasing it. Furthermore, this was all based on the ratings that we came up with; there was still a possibility that the developers of the projects would be reluctant to accept some of the cases that we rated higher than 5.
+Even after removing the 8 behavioural parametrization  cases, the average rating of the other 25 cases was slightly less than 5. This means that even if we discard the behavioral cases, we judged that, on average, our refactorings would decrease the quality of the code instead of increasing it. Furthermore, this was all based on the ratings that we came up with; there was still a possibility that the developers of the projects would be reluctant to accept some of the cases that we rated higher than 5. This points out the importance of the ``select'' step in the filter-and-select methodology.
 
 \subsubsection{Pull Requests}
 
-Creating and submitting pull requests is yet another method of getting feedback on the quality of the refactoring cases or any proposed program transformation in general, and can provide strong evidence for the usefulness of the tool.
+Creating and submitting pull requests is another method of getting feedback on the quality of the refactoring cases or any proposed program transformation in general, and can provide strong evidence for the usefulness of a tool.
 
-A significant advantage of this method is getting feedback from potential users of the JTestParametrizer tool. This feedback is high-value since the code maintainers' opinions are the most important ones about what is in the code. Unlike self-assessment, this feedback is impartial; there will not be any unconscious bias helping the cases. If anything, there might be an unconscious bias against the refactoring cases, as developers might be reluctant to change their code unless the quality of the code after changes is noticeably higher.
+A significant advantage of this method is getting feedback from potential users of the JTestParametrizer tool. This feedback is high-value since the code maintainers' opinions are the most important ones about what is in the code. Unlike self-assessment, this feedback is impartial (given an arms-length relationship with the developers); there will not be any unconscious bias helping the cases. If anything, there might be an unconscious bias against the refactoring cases, as developers might be reluctant to change their code unless the quality of the code after changes is noticeably higher.
 
 However, this method of getting feedback has some disadvantages too. Selecting the right set of changes for an acceptable pull request is a time-consuming process. Pull requests are external feedback, and it will take an unknown amount of time to receive them. To select the right set of changes for a pull request, we need to have enough understanding of the domain of the changes. Even though the feedback we are getting using this method is precious, we have no control over the level of detail of the feedback: it could be just a accept/reject, or a more detailed message.
 
@@ -281,7 +285,7 @@ To create a pull request for a benchmark, we did the following:
   \item \label{item:minor-changes} finally, we went over the remaining cases one more time and recorded and then fixed existing minor issues (see below). 
 \end{enumerate}
 
-There is a judgment call required in deciding how minor a minor fix could be. If we were doing summative evaluation, then there would be an argument for providing raw output. On the other hand, one could argue that one is trying to evaluate how good an ideal version of JTestParametrizer could be, and provide heavily-modified fixes. For our purposes, we decided to carry out method renamings, e.g. changing ``throwableFunctionalTestTestWithoutCauseTemplate'' to ``testThrowableWithoutCauseTemplate''.
+There is a judgment call required in deciding how minor a minor fix could be. If we were doing summative evaluation, then there would be an argument for providing raw output. On the other hand, one could argue that one is trying to evaluate how good an ideal version of JTestParametrizer could be; heavily-modified fixes would be acceptable for that purpose. For our purposes, we decided to carry out method renamings, e.g. changing ``throwableFunctionalTestTestWithoutCauseTemplate'' to ``testThrowableWithoutCauseTemplate''.
 
 
 %% \paragraph{Representative Cases}
@@ -321,7 +325,7 @@ Looking forward, when we are trying to get feedback on what JTestParametrizer co
 Nevertheless, we should not use pull requests as a black box or an oracle. Before submitting a pull request, we must have a good-faith belief that the pull request is improving the code's overall quality. We must always state our clear intention for each pull request in its description. These considerations are crucial, since a developer will review each pull request and put their time and effort into examining it. 
 
 \paragraph{Jimfs Pull Request}
-We present an example pull request that we submitted. In this case, the idea was to use the raw output of the pull request selection process. Furthermore, since the generated template method names were acceptable, we did not do any minor modifications either.
+We present an example pull request that we submitted. In this case, the idea was to use the raw output of the pull request selection process. Furthermore, since the generated template method names were acceptable, we did not need to do any minor modifications either.
 
 After finishing step~\ref{item:selecting-representative}, there remained four refactoring cases modifying three files. We used all of these cases for this pull request. The goal of this pull request was to get feedback on the quality of the refactoring cases that the current version of the JTestParametrizer tool produces.
 
@@ -338,7 +342,16 @@ Although none of our pull requests got merged, we found that submitting pull req
 %% This chapter used three different processes to get qualitative feedback. This feedback included both the feedback on the current version of the JTestParametrizer tool and early feedback on what the JTestParametrizer tool could do. By studying this feedback, we realized that developers care about certain critical factors when refactoring test methods. We tried to address some of these factors by adding new configurations to the JTestParametrizet tool. Finally, we tried manual modification to get feedback on some non-existent features, which helped us better understand the potential best next step for the JTestParametrizer tool. 
 
 \subsection{User Studies}
-\citeN{coblenz20:_can_advan_type_system_be_usabl} used user studies to empirically
+Although we did not carry out any user studies for JTestParametrizer, they
+are a valuable source of information about tools' effectiveness. 
+If a program transformation tool is task-based, then user studies work
+well for evaluating that tool. A program repair tool can also help developers
+repair their programs and would be a good candidate for a user study.
+More open-ended tools that aim to improve code quality are more difficult
+to evaluate using user studies. It is also
+difficult to recruit enough participants with the right experience.
+
+In the language design space, \citeN{coblenz20:_can_advan_type_system_be_usabl} used user studies to empirically
 investigated the usability of the Obsidian language and in particular
 its ownership, typestate, and assets features. They describe a
 reasonably tractable methodology for carrying out empirical
@@ -352,13 +365,8 @@ experimental subjects (graduate students) carry out a task using their
 SourceVis visualization tool, and qualitatively and quantitatively
 evaluated the performance of the subjects.
 
-If a program transformation tool is task-based, then user studies work
-well for evaluating that tool. A program repair tool can also help developers
-repair their programs and would be a good candidate for a user study.
-More open-ended tools that aim to improve code quality are more difficult
-to evaluate using user studies.
 
-\paragraph{Discussion}
+\subsection{Discussion}
 Out of the three processes that we used to get qualitative feedback, submitting pull requests was the one that benefited us the most and provided us with the most helpful feedback. However, based on our considerations for submitting a pull request, it is impossible to select pull requests without first practicing manual quality evaluation/self-assessment.
 
 Furthermore, although using a questionnaire is a great way to get feedback, questionnaires do not guarantee quality results. Therefore, we decided that using a questionnaire would not be as helpful as the other two processes for our research.

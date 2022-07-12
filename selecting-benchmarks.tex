@@ -10,22 +10,13 @@ They introduced new value, time-series, and statistical metrics for static and d
 
 From a more software engineering point of view, the Qualitas Corpus~\cite{QualitasCorpus} is, per the authors, ``[\ldots] a curated collection of software systems intended for analyzing empirical studies of code artifacts with the primary goal of providing a resource that supports reproducible studies of software.''. However, Qualitas's open-source Java software systems are not necessarily executable. Thus, XCorpus~\cite{XCorpus} is ``a set of 76 executable, real-world Java programs, including a subset of Qualitas Corpus''. To support execution, ``[XCorpus] uses a harness that is a combination of built-in and generated test cases, resulting in a branch coverage that is significantly better than what is available from DaCapo.''. In other research, we have used the DUETS benchmarks~\cite{durieux21} as a curated collection of pairs of libraries and clients.
 
-Program transformation tools can be viewed as software engineering
-tools.  Software engineering researchers have written about best
-practices for sampling.  Our present discussion is, in some sense, a
-discussion about how to draw a sample of
-benchmarks. \citeN{baltesar:_sampl_softw_engin_resear} survey recent
-published works in software engineering and investigate how these works sample code
-artifacts, people, and non-code artifacts.  They recommend best
-practices for sampling to ensure generalizability of research results.
-
 \subsection{Filters (generic)}
 Different benchmarks are going to be more or less suitable for exploring different aspects of tools. We acknowledge that being too selective with benchmarks can amount to unfair cherry-picking. However, we claim that applying principled and defensible filters to a large initial benchmark set can be a reasonable way to proceed. Indeed, one might legitimately apply different filters for different intended uses of the benchmarks: if simply collecting quantitative data, one could cast the net broadly and include almost all of the benchmarks. (For instance, when evaluating compiler performance and aiming to produce valid claims, one should usually not cherry-pick benchmarks.) On the other hand, for labour-intensive case studies where one is hoping to submit pull requests, one would want to filter aggressively---it would be desirable to filter as objectively as possible, but being inclusive is not as important. Documenting the filtering criteria would be a best practice, though.
 
-We discuss filters that are useful to consider when soliciting certain types of feedback. Even if a project fails a filter, it might be good for certain types of evaluation. For instance, benchmark Joda-Time is in maintenance mode, but would still be suitable for developing potential refactorings to be evaluated by us, or by third parties through a questionnaire.
+We discuss filters that are useful to consider when soliciting certain types of feedback. Even if a project fails a filter, it might be good for certain types of evaluation. For instance, the Joda-Time library is in maintenance mode, but would still be suitable for developing potential refactorings to be evaluated by us, or by third parties through a questionnaire.
 
 \paragraph{Popularity}
-Given a large potential benchmark set, it can be useful to choose projects with many GitHub stars and forks; such projects may be more relevant and widely used, or at least more active. As proxies for popularity and activity, choosing highly-starred and -forked projects may result in getting more feedback (from a larger developer pool).
+Given a large potential benchmark set, it can be useful to choose projects with many GitHub stars and forks; such projects may be more relevant and widely used, or at least more well-known and potentially more active. As proxies for popularity and activity, choosing highly-starred and -forked projects may result in getting more feedback (from a larger developer pool).
 
 \paragraph{Maintenance Mode}
 When proposing code improvements to the developers, one should check that a candidate benchmark is not in maintenance mode. For instance, after submitting the pull request for our Gson benchmark, we received the following feedback: ``This project is in maintenance mode, and we are generally going to be reluctant to accept PRs that are essentially cosmetic, especially if it is not trivially obvious that they do not change anything.''. We also prepared a pull request for Joda-Time, but realized that the project is in maintenance mode before submitting it.
