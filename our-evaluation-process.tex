@@ -35,7 +35,21 @@ feedback about test refactorings of these benchmarks using merge
 requests.  We believe that, in a large space such as this one, it is
 appropriate to select specific benchmarks for detailed exploration.
 
-\subsection{Quantitative Results}
+\subsection{Quantitative Evaluation}
+The fundamental quantitative results that need to be reported are
+specific to the tool itself; in a tool which includes selecting-and-filtering
+steps, they would include some indication of the raw number of candidates
+and the number of candidates presented to the developer, with some 
+context to judge the rate of candidate production. When ground truth 
+results are available and results can be judged as true positives/false positives/true negatives/false negatives,
+then precision and recall can be appropriate as well, indicating how good
+the selecting-and-filtering steps are in returning relevant results.
+
+As an example, \citeN{gao21:_apifix} present the {\sc APIfix} program synthesis tool for automating API usage adaptations. They report that they adapted 848 usages on a total corpus of 7 libraries and 138,206 clients. They report the number of false positives and false negatives, as well as precision and recall.
+
+In the case of \cite{dura21:_javad}, the authors compare their new {\sc JavaDL} bug detection tool against existing SpotBugs and Error Prone tools. From a quantitative point of view, the ground truth is the results reported by the earlier tools. They also report on their tool's performance and its expressiveness (which is not quantitative).
+
+With respect to JTestParametrizer,
 Table~\ref{table:quantitative_results} presents a subset of the
 quantitative results that we collected. The most important results are
 the counts of refactoring nominees and actual refactored tests. We
@@ -83,41 +97,60 @@ We thus decided that we should switch to validating the quality of
 refactoring first: there is no sense in debugging the implementation of a feature
 that users don't want. Easier to remove the feature.
 
-We explored several ways of seeking feedback about the quality of our
-refactorings.
+We put in practice the discussion  from Section~\ref{sec:how-to-evaluate}
+to seek feedback about the quality of our refactorings.
 
-\paragraph{Questionnaires}
-As an example of a questionnaire, \citeN{laugwitz08:_const} explain
+\subsubsection{Questionnaires}
+Using a questionnaire (survey) is one way of getting feedback. It is
+inexpensive, easy to analyze, and scalable. However, back to the
+``by who'' question, a questionnaire does not come with any
+guarantee of quality results: it is challenging to find the right
+target audience for a technical questionnaire. Furthermore, even if we
+do so, there is no guarantee of the target audience being
+engaged and putting any time or effort into the answers.
+
+We will present the questionnaire from
+\cite{noller22:_trust_enhan_issues_progr_repair} as our primary
+example. In that work, the authors surveyed developers about what they
+are looking for from automated program repair (APR) tools.
+
+They developed a
+35-question survey instrument which included multiple-choice
+(including 5-point Likert), selection + other, and open-ended
+questions. They recruited participants from MTurk (receiving 134
+responses of which 34 were valid) and from their contacts (81 valid
+responses). They used qualitative content analysis coding for the open-ended
+questions. 
+
+However, they did not survey the developers about a particular tool
+and what it does; they asked generic questions (not specialized to a
+tool) like ``how much time would you be giving to any APR technique to
+produce results?''. In a second phase, the authors then compared the
+survey responses to the current capabilities of the tools (and found
+that the tools were not up to developer expectations).
+
+As another example of a questionnaire, \citeN{laugwitz08:_const} explain
 how they designed a user experience questionnaire to get feedback on
 six factors: Attractiveness, Perspicuity, Efficiency, Dependability,
 Stimulation, and Novelty. Their results indicated a satisfying level
 of reliability and construct validity (the questionnaire measures what
 it is supposed to).
 
+%% We decided to create a questionnaire to get feedback on the quality of the refactored test cases. Our questionnaire included:
 
-Using a questionnaire is one way of getting feedback. It is
-inexpensive, easy to analyze, and scalable. However, back to the
-``which humans'' question, a questionnaire does not come with any
-guarantee of quality results: it is challenging to find the right
-target audience for a technical questionnaire. Furthermore, even if we
-do so, there is no guarantee of the target audience being
-engaged and putting any time or effort into the answers.
+%% \begin{enumerate}
+%%   \item seven demographic questions to determine the familiarity of the respondent with SE/PL research in general;
+%%   \item seven demographic questions to determine the familiarity of the respondent with unit tests and refactoring; and,
+%%   \item twenty-four questions on three refactoring cases chosen from the refactored Gson benchmark, as compared to the original version.
+%% \end{enumerate}
 
-We decided to create a questionnaire to get feedback on the quality of the refactored test cases. Our questionnaire included:
+%% These twenty-four questions included comparisons based on maintainability, conciseness, readability, understandability, extensibility, and repetition criteria, and an overall quality assessment for the refactorings.
+%% We hand-picked those three refactoring cases since they represented three different refactoring groups in the Gson benchmark.
 
-\begin{enumerate}
-  \item seven demographic questions to determine the familiarity of the respondent with SE/PL research in general;
-  \item seven demographic questions to determine the familiarity of the respondent with unit tests and refactoring; and,
-  \item twenty-four questions on three refactoring cases chosen from the refactored Gson benchmark, as compared to the original version.
-\end{enumerate}
+%% However, before submitting the questionnaire for the ethics clearance, we decided that it would be better if we use our time to seek feedback on the quality of the refactorings in a different way. This decision was mainly due to not having a great target audience for our questionnaire, potentially dealing with low-quality feedback that might not help our assessment, and concluding that we could get higher-quality feedback using other methods such as self-assessment and pull requests.
 
-These twenty-four questions included comparisons based on maintainability, conciseness, readability, understandability, extensibility, and repetition criteria, and an overall quality assessment for the refactorings.
-We hand-picked those three refactoring cases since they represented three different refactoring groups in the Gson benchmark.
-
-However, before submitting the questionnaire for the ethics clearance, we decided that it would be better if we use our time to seek feedback on the quality of the refactorings in a different way. This decision was mainly due to not having a great target audience for our questionnaire, potentially dealing with low-quality feedback that might not help our assessment, and concluding that we could get higher-quality feedback using other methods such as self-assessment and pull requests.
-
-\paragraph{Self-assessment}
-Manually staring at each refactoring and thinking deeply about it is another way to get feedback on the quality of refactorings. This method can be done without external assistance, and does not require waiting for an unknown amount of time to get an unknown amount of feedback. In fact, in general, it does not require motivating external partners. And one can study a benchmark's domain to determine whether one thinks a refactoring is appropriate for that domain. One is fully in charge of the level of detail obtained.
+\subsubsection{Self-assessment}
+Manually staring at each refactoring and thinking deeply (and honestly) about it is another way to get feedback on the quality of refactorings. This method can be done without external assistance, and does not require waiting for an unknown amount of time to get an unknown amount of feedback. In fact, in general, it does not require motivating external partners. And one can study a benchmark's domain to determine whether one thinks a refactoring is appropriate for that domain. One is fully in charge of the level of detail obtained.
 
 However, this is a self-assessment, and like any other type of self-assessments, it could be vulnerable to unconscious bias. One must be perhaps-uncomfortably honest with oneself when assessing the results of one's tool. Coauthors can help mitigate bias, but they still have a vested interest in the success of the experiment; it is hard to get truly impartial opinions from a self-assessment.
 
@@ -184,7 +217,8 @@ We assigned a 5 rating for the out-of-the-box version of this refactoring case, 
       throwableFunctionalTestTestWithoutCauseTemplate(
       Class<TThrowable> clazzTThrowable) throws Exception {
       
-    TThrowable e = clazzTThrowable.getDeclaredConstructor(String.class).
+    TThrowable e = clazzTThrowable.
+      getDeclaredConstructor(String.class).
       newInstance("hello");
     String json = gson.toJson(e);
     assertTrue(json.contains("hello"));
@@ -205,7 +239,7 @@ We observed that running the tool without behaviour parametrization triggers a l
 \paragraph{Self-assessment discussion}
 Even after removing the 8 behavioural parametrization  cases, the average rating of the other 25 cases was slightly less than 5. This means that even if we discard the behavioral cases, we judged that, on average, our refactorings would decrease the quality of the code instead of increasing it. Furthermore, this was all based on the ratings that we came up with; there was still a possibility that the developers of the projects would be reluctant to accept some of the cases that we rated higher than 5.
 
-\paragraph{Pull Requests}
+\subsubsection{Pull Requests}
 
 Creating and submitting pull requests is yet another method of getting feedback on the quality of the refactoring cases or any proposed program transformation in general, and can provide strong evidence for the usefulness of the tool.
 
@@ -296,6 +330,8 @@ We submitted the \href{https://github.com/google/jimfs/pull/159}{Jimfs pull requ
 This was valuable feedback regarding the details of the reasoning behind the final decision. It was not clear to the reviewer that the changes improved the overall quality of the code, which was not unexpected since we rated the refactoring cases used for this PR around 6 in the manual evaluation process: we felt that the PR somewhat improved the quality of the code. 
 
 The feedback was clear. The reduction of duplication, improvement in extensibility, or other advantages of our modifications, needs to clearly compensate for the disadvantages, such as the decrease in understandability of the expected behavior of the tests, for the pull request to be a net positive. This could be done either by strengthening the advantages (e.g., more duplication reduction) or reducing the disadvantages (e.g., easier to understand).
+
+Although none of our pull requests got merged, we found that submitting pull requests was quite helpful, and we believe that the process that we followed was fair to the projects involved.
 
 %% \paragraph{Learning From our Experience}
 

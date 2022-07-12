@@ -2,13 +2,16 @@
 \label{sec:selecting-benchmarks}
 What we find depends greatly on where we look---an aphorism that also applies to benchmark selection when evaluating programming languages and software engineering research. 
 It might seem that the amount of open-source code available on the Internet today is boundless. However, the second author has observed that their graduate students find it challenging to define suitable benchmark suites to evaluate their research. 
-In this section, we discuss tips that we have found to be useful when choosing benchmarks, including filters that are useful to apply to benchmark selection.
+
+There is a tradeoff between the number of benchmarks versus how deeply a work can explore each benchmark. One would have a hard time arguing for external validity based on a single benchmark, or even 3. On the other hand, it is difficult to present detailed qualitative results on a collection of 20 benchmarks. We find that having about a dozen benchmarks, with detailed investiation of a smaller subset, is a good compromise.
+
+In this section, we discuss tips that we have found to be useful when choosing benchmarks, including filters that are useful to apply to benchmark selection, and discuss our experience selecting benchmarks for JTestParametrizer.
 
 \subsection{Existing Benchmark Collections}
-Industrial consortia and researchers have created collections of benchmarks for various purposes. SPEC, the Standard Performance Evaluation Corporation, contributed an early Java benchmark collection, SPEC JVM 98~\cite{SPECjvm98} and updated it in 2008~\cite{SPECjvm2008}. SPEC JVM was designed to measure the performance of both Java virtual machine client platforms and hardware systems. Later, researchers introduced the DaCapo benchmark collection~\cite{DaCapo_inproceedings}, consisting of open-source, real-world Java applications. 
+Industrial consortia and researchers have created collections of benchmarks for various purposes. SPEC, the Standard Performance Evaluation Corporation, contributed an early Java benchmark collection, SPEC JVM 98~\cite{SPECjvm98} and updated it in 2008~\cite{SPECjvm2008}. SPEC JVM was designed to measure the performance of both Java virtual machine client platforms and hardware systems. Later, researchers introduced the DaCapo benchmark collection~\cite{DaCapo_inproceedings}, consisting of 14 open-source, real-world Java applications. 
 They introduced new value, time-series, and statistical metrics for static and dynamic properties such as code complexity, code size, heap composition, and pointer mutations. These benchmarks aimed to empirically evaluate performance and memory management efficiency of Java virtual machines.
 
-From a more software engineering point of view, the Qualitas Corpus~\cite{QualitasCorpus} is, per the authors, ``[\ldots] a curated collection of software systems intended for analyzing empirical studies of code artifacts with the primary goal of providing a resource that supports reproducible studies of software.''. However, Qualitas's open-source Java software systems are not necessarily executable. Thus, XCorpus~\cite{XCorpus} is ``a set of 76 executable, real-world Java programs, including a subset of Qualitas Corpus''. To support execution, ``[XCorpus] uses a harness that is a combination of built-in and generated test cases, resulting in a branch coverage that is significantly better than what is available from DaCapo.''. In other research, we have used the DUETS benchmarks~\cite{durieux21} as a curated collection of pairs of libraries and clients.
+From a more software engineering point of view, the Qualitas Corpus~\cite{QualitasCorpus} is, per the authors, ``[\ldots] a curated collection of software systems intended for analyzing empirical studies of code artifacts with the primary goal of providing a resource that supports reproducible studies of software.''. However, Qualitas's open-source Java software systems are not necessarily executable. Thus, XCorpus~\cite{XCorpus} is ``a set of 76 executable, real-world Java programs, including a subset of Qualitas Corpus''. To support execution, ``[XCorpus] uses a harness that is a combination of built-in and generated test cases, resulting in a branch coverage that is significantly better than what is available from DaCapo.''. In other research, we have used the DUETS benchmarks~\cite{durieux21} as a curated collection of pairs of libraries and clients. That suite matched our goals quite well, fortuately.
 
 Program transformation tools can be viewed as software engineering
 tools.  Software engineering researchers have written about best
@@ -40,7 +43,7 @@ We used the following heuristics to determine whether a project is in maintenanc
 For instance, for Joda-Time, the most recent commit was about four months before we looked; the last few commits were all about a release (of a maintenance version); and the pull request message pointed out that they are in maintenance mode.
 
 \paragraph{Estimated Response Time}
-Another useful filter is to select projects with recent track records of fast responses to pull requests. \citeN{zhang22:_pull} identify factors explaining pull request latency, but that general type of information is not useful to us here; we want a fine-grained look at the specific project that we target, and its specific recent track record. For instance, Gson developers provided feedback to our pull request in less than an hour, whereas Bootique developers did not react to our pull request even after a month.
+Another useful filter is to select projects with recent track records of fast responses to pull requests. For instance, Gson developers provided feedback to our pull request in less than an hour, whereas Bootique developers did not react to our pull request even after a month.
 
 To evaluate the track record, one can look at a project's list of open/closed pull requests. The last few closed pull requests and some open pull requests will provide a reasonable estimate about how long it takes for developers to come up with feedback. Furthermore, the number of contributors can be an indicator too (one might expect a larger contributor pool to be in a position to provide faster feedback).
 
@@ -87,8 +90,8 @@ Checklists are a helpful way to quickly evaluating things (empirical evaluations
 
 We considered the projects that satisfied all of these conditions for inclusion in our set of benchmarks. We additionally filtered according to the number of refactoring nominees reported and refactored.
 
-\paragraph{JTestParamtrizer Benchmarks}
-Table~\ref{table:benchmarks} lists the benchmarks that we selected,
+\paragraph{JTestParametrizer Benchmarks}
+Table~\ref{table:benchmarks} lists the benchmarks that we selected for JTestParametrizer,
 along with their properties. This data provides an overview of project
 size (e.g. lines of code\footnote{via SLOCCount, \url{https://dwheeler.com/sloccount/}}), popularity (stars and forks), and vitality (open and
 closed pull requests). Note that the table contains 14 repositories and 18 benchmarks; 2 benchmarks are subprojects of the same GitHub repository, and we used two versions of three of the projects (Gson, Bootique, Joda-Time) as separate benchmarks.
