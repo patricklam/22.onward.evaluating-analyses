@@ -20,8 +20,8 @@ single right answer. Some tools, such as program refactoring tools~\cite{ivers22
 are designed to only affect nonfunctional properties of the
 software, e.g. maintainability, but different users have
 different standards for maintainability. Program synthesis~\cite{solar-lezama08:_progr_synth_sketc} is also an
-underconstrained problem and humans must decide which one of many
-potential solutions is most appropriate. And, program repair
+underconstrained problem and humans must set policies that decide which, of many
+potential solutions, is most appropriate. And, program repair
 tools~\cite{griesmayer06:_repair_boolean_progr_applic_c} 
 attempt to make the software (closer to) correct. Even in 
 the bug detection space: although, per 
@@ -31,13 +31,26 @@ important to fix (and don't cause undesired regressions) is hard and,
 in the end, requires a judgment call by a human.
 
 The goal of this work is to discuss best practices for evaluating
-source-to-source program transformation tools. We use best practices from the literature
+source-to-source program transformation tools~\cite{visser04:_progr_trans}. Typically, a program
+transformation tool accepts a source program (written in a programming
+language that the tool recognizes) and proposes modifications to the source code,
+purportedly improving it in some way.
+We use best practices from the literature
 to inform our arguments, as well as our recent experience developing
 a specific tool, JTestParametrizer. That tool proposes
 refactorings based on static analysis results, and we describe some of the
 steps that we have taken to evaluate the usefulness of our tool.
 
-We point out that our focus here is on evaluating program transformation \emph{tools}.
+While both programming languages and program transformation tools exist
+in vast open-ended design spaces, we claim that the design of program transformation
+tools fundamentally aim to serve already-existing codebases, while programming 
+language design aims to serve codebases to be written in the future.
+This difference implies that appropriate evaluation for language is different 
+from appropriate evaluation for transformation tools.
+(Migration tools like Gofix~\cite{cox11:_introd_gofix} bridge the gap between new programming language designs
+and existing codebases).
+
+Our focus here is on evaluating program transformation \emph{tools}.
 We claim that the main question, which we will elaborate on in Section~\ref{sec:how-to-evaluate}, is:
 
 \begin{center}
@@ -65,12 +78,4 @@ Earlier, \citeN{markstrum10:_stakin_claim} noted that programming
 language design claims were typically under-supported, and \citeN{halverson09:_climb_plateau} explored how to evaluate programmer productivity in a
 proposed language. 
 
-While both programming languages and program transformation tools exist
-in vast open-ended design spaces, we claim that the design of program transformation
-tools fundamentally aim to serve already-existing codebases, while programming 
-language design aims to serve codebases to be written in the future.
-This difference implies that appropriate evaluation for language is different 
-from appropriate evaluation for transformation tools.
-(Migration tools bridge the gap between new programming language designs
-and existing codebases).
 

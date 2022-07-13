@@ -8,8 +8,8 @@ a quantitative evaluation, as well as qualitative evaluations
 including questionnaires/surveys, self-assessments, pull requests,
 and user studies.
 
-In our case study, we used different benchmarks for
-different purposes. We used all 18 benchmarks to collect quantitative
+\paragraph{Benchmark use for JTestParametrizer case study.} 
+We used all 18 benchmarks to collect quantitative
 metrics. As our tool was a refactoring tool, it was supposed to be
 semantics-preserving. We aimed to check that JTestParametrizer ran
 successfully on each benchmark, and that the transformed benchmark
@@ -33,7 +33,7 @@ sources of practical examples for a questionnaire to validate the
 quality of the refactoring (which, in the event, we did not end up
 distributing).  We manually rated refactoring quality for 5 benchmarks
 (Jimfs, Gson, Joda-time, and Bootique). We also sought developer
-feedback about test refactorings of these benchmarks using merge
+feedback about test refactorings of these benchmarks using merge (or pull)
 requests.  We believe that, in a large space such as this one, it is
 appropriate to select specific benchmarks for detailed exploration.
 
@@ -329,13 +329,13 @@ We present an example pull request that we submitted. In this case, the idea was
 
 After finishing step~\ref{item:selecting-representative}, there remained four refactoring cases modifying three files. We used all of these cases for this pull request. The goal of this pull request was to get feedback on the quality of the refactoring cases that the current version of the JTestParametrizer tool produces.
 
-We submitted the \href{https://github.com/google/jimfs/pull/159}{Jimfs pull request}\footnote{Double-blind review warning: link to pull request not anonymized} and the feedback that we got for it stated: \begin{quote}``Thanks for the PR. I'm not going to merge it at the moment because it's not clear to me that this is an improvement... reducing duplication is generally good, but not as much so in tests where some amount of duplication can make the expected behavior more clear in each test case. But I'll leave it open for the moment because it's possible this could benefit from reducing duplication to some extent.''\end{quote}
+Fully disclosing that we were performing exploratory research, we submitted the \href{https://github.com/google/jimfs/pull/159}{Jimfs pull request}\footnote{Double-blind review warning: link to pull request not anonymized} and the feedback that we got for it stated: \begin{quote}``Thanks for the PR. I'm not going to merge it at the moment because it's not clear to me that this is an improvement... reducing duplication is generally good, but not as much so in tests where some amount of duplication can make the expected behavior more clear in each test case. But I'll leave it open for the moment because it's possible this could benefit from reducing duplication to some extent.''\end{quote}
 
 This was valuable feedback regarding the details of the reasoning behind the final decision. It was not clear to the reviewer that the changes improved the overall quality of the code, which was not unexpected since we rated the refactoring cases used for this PR around 6 in the manual evaluation process: we felt that the PR somewhat improved the quality of the code. 
 
 The feedback was clear. The reduction of duplication, improvement in extensibility, or other advantages of our modifications, needs to clearly compensate for the disadvantages, such as the decrease in understandability of the expected behavior of the tests, for the pull request to be a net positive. This could be done either by strengthening the advantages (e.g., more duplication reduction) or reducing the disadvantages (e.g., easier to understand).
 
-Although none of our pull requests got merged, we found that submitting pull requests was quite helpful, and we believe that the process that we followed was fair to the projects involved.
+Although none of our pull requests got merged, we found that submitting pull requests was quite helpful. We took steps which, we believe, ensured that our process was fair to the projects involved.
 
 %% \paragraph{Learning From our Experience}
 
@@ -367,13 +367,20 @@ evaluated the performance of the subjects.
 
 
 \subsection{Discussion}
-Out of the three processes that we used to get qualitative feedback, submitting pull requests was the one that benefited us the most and provided us with the most helpful feedback. However, based on our considerations for submitting a pull request, it is impossible to select pull requests without first practicing manual quality evaluation/self-assessment.
+We presented general techniques for evaluating tools, including
+quantitative evaluations (counting how often the tool found something),
+qualitative evaluations (questionnaires, self-assessments, pull requests),
+and user studies.
 
-Furthermore, although using a questionnaire is a great way to get feedback, questionnaires do not guarantee quality results. Therefore, we decided that using a questionnaire would not be as helpful as the other two processes for our research.
+For JTestParametrizer, evaluation via submitting pull requests benefited us the most and provided us with the most helpful feedback. However, based on our considerations for submitting a pull request, it is impossible to select pull requests without first practicing manual quality evaluation/self-assessment.
+
+Furthermore, although using a questionnaire is a great way to get feedback, questionnaires do not guarantee quality results. Therefore, we decided that using a questionnaire would not be as helpful as the other two processes for our research; we described uses of questionnaires by others.
 
 Self-assessment allowed us to conclude that one of the types of refactoring we had implemented, behavioural refactoring, tended to be a net negative. As a result, we removed that type of refactoring from our tool.
 
 We gained valuable lessons from preparing 5 pull requests and receiving feedback from 2 of the 3 requests that we submitted: understandability and readability criteria in a test method are much more valuable than the same criteria in the production code since it is an advantage to understand a test method in isolation without looking elsewhere in the test class. 
+
+User studies were a bit of a stretch for evaluating JTestParametrizer because it is not a task-based tool, and we did not carry out any user studies for it.
 
 %% I also learned that even though reducing duplication is generally good, it is not as crucial in test methods since duplication in tests can make the expected behavior clearer. A reduction of duplication in tests is only valuable if it does not damage the understandability of the tests.
 

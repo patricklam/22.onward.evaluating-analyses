@@ -1,8 +1,8 @@
-\section{Evaluating Languages and Tools}
+\section{Evaluating Tools}
 \label{sec:how-to-evaluate}
 As we've discussed, evaluating the usefulness of many program
 transformation tools requires some subjective judgment. 
-Language evaluations (and in particular the ones we mention here) are
+Programming language design evaluations are
 quite different from tool evaluations---language designers make
 the design decisions upfront, potentially modifying the language
 as they work through case studies, while tool designers should have
@@ -23,13 +23,148 @@ transformation tools. The goal of the tool developers is to choose
 an evaluation that will show that the tool is useful on an important
 set of subjects for an appropriate audience.
 
+\subsection{How, Which, and Who?}
+We consider the evaluation question piecewise, starting with the ``how'' subquestion.
+
+\paragraph{How to evaluate?} The designer of the tool will have a usage scenario for the
+transformations produced by the tool. This usage scenario is necessary
+but not sufficient to establish that the tool is useful. It is simply
+a first step---at this level of abstraction, the usage scenario is
+simply something that a reader considers so that they can decide,
+based on their experience, whether the tool seems like it would be
+useful to them or not.  It is still too abstract to make concrete
+decisions about.
+
+One can create more elaborate usage scenarios, potentially
+with stakeholder involvement.
+For instance, moving away from program transformation tools, the $i^*$ modeling framework is a modeling language used in the early
+system modeling phase to help understand a problem domain. This
+framework has been widely used in research and some industrial
+projects. However, \citeN{estrada06:_empir_evaluat_framew_model_based} pointed out that no
+empirical evaluation existed to identify $i^*$'s strengths and
+weaknesses. They presented an empirical evaluation of the $i^*$
+framework using industrial case studies, conducting their work in
+collaboration with an industrial partner. 
+For some tools, stakeholder buy-in may be all that is required
+to justify development of the tool; it would also be wise to
+evaluate actual stakeholder usage once the tool has been deployed.
+%Estrada et al.~report
+%lessons learned from this experience showing the strengths and
+%weaknesses of $i^*$, which they hope will play a crucial role in
+%guiding extensions of the $i^*$ framework.
+
+We have observed that language design heavily relies on case studies.
+For instance, the creators of the Gator graphics programming language~\cite{geisler20:_geomet_types_graph_progr} used 8 self-created case studies to advocate for the language; the case studies serve to showcase language features, both in terms of expressiveness and in terms of potential bugs avoided. As another example, Racket's language extension API~\cite{tobin-hochstadt11:_languag_librar} was supported by explanations of how the API supported author-identified usages, along with a performance evaluation, but no evidence about the API's usage by users.
+
+Tool designers can solicit opinions about their tools along a continuum from abstract
+opinions to concrete judgments. There is a continuum between the
+abstract opinion ``would tool T be useful,'' through to ``do you
+support this usage scenario X'', all the way to the concrete ``is
+specific proposed transformation Y useful?''
+
+Questionnaires, interviews, and user studies are some ways to solicit opinions. 
+Generally, it is difficult to find an appropriate
+target audience; ideally, the audience would provide engaged feedback
+on the tool, but that is not always obvious.  Questionnaires can be
+open-ended or closed-ended. Closed-ended questionnaries can yield
+easy-to-summarize but coarse information, while open-ended
+questionnaires require more effort from participants to answer and
+more effort from researchers to analyze. Moving beyond open-ended
+questionnaires, interviews are another way of getting feedback
+from an audience. Some of the ways that open-ended questionnaires and interviews can be 
+analyzed (qualitatively) are through content analysis coding, or 
+using a grounded theory framework~\cite{glaser67:_discov_groun_theor}.
+\citeN{lubin21:_how} carry out interviews, analyze them using grounded
+theory, and carry out additional user experiments (user studies)
+to validate their findings.
+User studies involve more work to set up than questionnaires---they can take weeks to months to set up---but can also provide concrete
+information about how a tool is actually used, typically to accomplish set tasks.
+
+\paragraph{Which benchmarks?} If an evaluation of a tool solicits opinions
+about the tool on a set of benchmarks, then benchmark selection will affect
+the opinions offered. We will discuss benchmark selection in 
+Section~\ref{sec:selecting-benchmarks}.
+
+Exploratory, 
+or pilot, studies can be useful to establish that the
+anticipated usage scenarios actually occur in the wild, though. For instance,
+we have had the unfortunate experience\footnote{Citation omitted for double-blind review.} of designing a static analysis,
+and then having a hard time finding code to which it was
+applicable. \cite{beckman11:_empir_study_objec_protoc_wild}, on the
+other hand, have conducted an empirical study of 15 benchmark programs
+and 2 million lines of code, establishing that 7.2\% of types defined
+object protocols, and 13\% of classes were clients of such types.
+Such examples also serve as concrete examples of a tool's usefulness.
+
+
+\paragraph{Who evaluates?}
+A key remaining question is: which humans should evaluate the
+results of the tool?  Possible answers include the researchers
+developing the tool; arbitrary developers; or the developers of
+particular software projects.
+
+Manual self-assessment of results by the tool developers is at least
+useful in an exploratory phase. This method does not need external
+help, and the tool developers can do as detailed an examination of
+their results as they desire. However, it could be vulnerable to
+potential unconscious bias and incorrect assumptions by tool
+developers about what factors would be important to actual
+users. Still, it is a necessary first step in tool evaluation, before
+presenting the tool to an external audience.
+
+Assuming that one accepts that an external audience is desirable,
+then potential or actual tool users are the gold standard audience for
+obtaining valuable feedback. Submitting merge requests to open source
+projects is one way to solicit real feedback, even if preparing the merge requests
+takes time. Their acceptance (or
+not) reveal a ground truth result about whether a project developer
+considers the tool useful (though on a case that was hand curated by
+the tool developers). Even with necessary caveats, they provide some information
+about which factors are the most crucial for the quality of a tool
+from the potential customers' point of view. 
+In some sense, submitting merge requests to maintainers of open-source projects
+is a highly specific and idiosyncratic user study (which may be hard to generalize).
+
+Merge requests thus often appear as evidence of tool usefulness.
+For instance, \citeN{ren22:_autom_patch_unrep_build} developed a tool
+to automatically generate patches to fix unreproducible builds.
+In addition to manually verifying that the 64 generated patches over 116 packages
+are correct, they submit 4 patches to the Arch Linux distribution and report
+that 2 of the patches had been accepted as of publication.
+
+When getting external feedback about a tool (e.g. questionnaires or
+submitting merge requests), tool developers must consider ethics
+(including Institutional Review Board approval when required). Although
+ethics requirements vary, the requirements
+applicable to us state that ethics review 
+``is not required for the initial exploratory phase, which is intended to establish research partnerships or to inform the design of a research proposal, and may involve contact with individuals or communities\footnote{Citation omitted for double-blind review.},'' and we believe that what we
+described here falls within the initial exploratory phase.
+
+Violations of ethical
+standards can cause severe consequences. For instance, the
+University of Minnesota got a university-wide ban from contributing to
+the Linux kernel. One of their systems security researchers submitted
+dubious merge requests to the Linux kernel for a hidden purpose that they did
+not state. The Linux Foundation deemed this
+unethical: Linux developers were offended that the university had 
+wasted the reviewers' time on purpose. This resulted in a university-wide ban
+following an email from Linux Foundation fellow Greg Kroah-Hartman
+which stated: ``I suggest you find a different community to do
+experiments on,'' and ``You are not welcome
+here.''~\cite{minnesota_banned}
+
 \subsection{Concrete Evaluation Workflow}
-We now consider the entire workflow involved in choosing concrete
-program transformation suggestions to present to a developer. To present
-a program transformation tool, researchers would explain decisions made during
-the workflow and justify why they made those decisions, showing how they fit
-with their
-desired evaluation criteria.
+Another part of the evaluation is: what aspects of the tool are
+being evaluated?
+One may evaluate how the tool chooses concrete
+suggestions to present to a developer, i.e. the workflow. 
+The kind of workflow that we discuss here applies
+best to tools like refactoring recommenders and bug detectors, and
+needs some adaptation to apply to program synthesis and program repair.
+For applicable tools, researchers would explain decisions made while
+designing the workflow and justify why they made those decisions, showing how the
+decisions fit
+with their desired evaluation criteria.
 
 \paragraph{Filtering bad candidates.} Typically, a
 program transformation tool generates a large set of candidate
@@ -60,124 +195,6 @@ transformation tool would have generated a ranked set of results on a
 benchmark. The usefulness of the tool is in large part determined
 by how it produces this ranked set of results and how well this ranked set
 matches developer needs.
-
-\subsection{How, Which, and Who?}
-We now return to the evaluation question, starting with the ``how'' subquestion.
-
-\paragraph{How to evaluate?} The designer of the tool will have a usage scenario for the
-transformations produced by the tool. This usage scenario is necessary
-but not sufficient to establish that the tool is useful. It is simply
-a first step---at this level of abstraction, the usage scenario is
-simply something that a reader considers so that they can decide,
-based on their experience, whether the tool seems like it would be
-useful to them or not.  It is still too abstract to make concrete
-decisions about.
-
-One can create more elaborate usage scenarios, potentially
-with stakeholder involvement.
-For instance, moving away from program transformation tools, the $i^*$ modeling framework is a modeling language used in the early
-system modeling phase to help understand a problem domain. This
-framework has been widely used in research and some industrial
-projects. However, \citeN{estrada06:_empir_evaluat_framew_model_based} pointed out that no
-empirical evaluation existed to identify $i^*$'s strengths and
-weaknesses. They presented an empirical evaluation of the $i^*$
-framework using industrial case studies, conducting their work in
-collaboration with an industrial partner. 
-For some tools, stakeholder buy-in may be all that is required
-to justify development of the tool; it would also be wise to
-evaluate actual stakeholder usage once the tool has been deployed.
-%Estrada et al.~report
-%lessons learned from this experience showing the strengths and
-%weaknesses of $i^*$, which they hope will play a crucial role in
-%guiding extensions of the $i^*$ framework.
-
-In general, language design heavily relies on case studies.
-For instance, the creators of the Gator graphics programming language~\cite{geisler20:_geomet_types_graph_progr} used 8 self-created case studies to advocate for the language; the case studies serve to showcase language features, both in terms of expressiveness and in terms of potential bugs avoided.
-
-Tool designers can solicit opinions along a continuum from abstract
-opinions to concrete judgments. There is a continuum between the
-abstract opinion ``would tool T be useful,'' through to ``do you
-support this usage scenario X'', all the way to the concrete ``is
-specific proposed transformation Y useful?''
-
-Questionnaires, interviews, and user studies are some ways to solicit opinions. 
-Generally, it is difficult to find an appropriate
-target audience; ideally, the audience would provide engaged feedback
-on the tool, but that is not always obvious.  Questionnaires can be
-open-ended or closed-ended. Closed-ended questionnaries can yield
-easy-to-summarize but coarse information, while open-ended
-questionnaires require more effort from participants to answer and
-more effort from researchers to analyze. Moving beyond open-ended
-questionnaires, interviews are another way of getting feedback
-from an audience. Some of the ways that open-ended questionnaires and interviews can be 
-analyzed (qualitatively) are through content analysis coding, or 
-using a grounded theory framework~\cite{glaser67:_discov_groun_theor}.
-\citeN{lubin21:_how} carry out interviews, analyze them using grounded
-theory, and carry out additional user experiments (user studies)
-to validate their findings.
-User studies involve more work to set up than questionnaires but can also provide concrete
-information about how a tool is actually used, typically to accomplish set tasks.
-
-\paragraph{Which benchmarks?} Benchmark selection is important,
-and we will discuss it in Section~\ref{sec:selecting-benchmarks}.
-
-Exploratory, 
-or pilot, studies can be useful to establish that the
-anticipated usage scenarios actually occur in the wild, though. For instance,
-we have had the unfortunate experience\footnote{Citation omitted for double-blind review.} of designing a static analysis,
-and then having a hard time finding code to which it was
-applicable. \cite{beckman11:_empir_study_objec_protoc_wild}, on the
-other hand, have conducted an empirical study of 15 benchmark programs
-and 2 million lines of code, establishing that 7.2\% of types defined
-object protocols, and 13\% of classes were clients of such types.
-Such examples also serve as concrete examples of a tool's usefulness.
-
-
-\paragraph{Who evaluates?}
-A key remaining question is: which humans should evaluate the
-results of the tool?  Possible answers include the researchers
-developing the tool; arbitrary developers; or the developers of
-particular software projects.
-
-Manual self-assessment of results by the tool developers is at least
-useful in an exploratory phase. This method does not need external
-help, and the tool developers can do as detailed an examination of
-their results as they desire. However, it could be vulnerable to
-potential unconscious bias and incorrect assumptions by tool
-developers about what factors would be important to actual
-users. Still, it is a necessary first step in tool evaluation, before
-presenting the tool to an external audience.
-
-Potential or actual tool users are the gold standard audience for
-obtaining valuable feedback. Submitting merge requests to open source
-projects is one way to ask for real feedback. Their acceptance (or
-not) reveal a ground truth result about whether a project developer
-considers the tool useful (though on a case that was hand curated by
-the tool developers). Nevertheless, they provide some information
-about which factors are the most crucial for the quality of a tool
-from the potential customers' point of view. Doing a good job here
-does take time.
-
-At the limit, perhaps the
-best way to show that a tool in this space is useful in practice is by
-submitting merge requests to maintainers of open-source projects---a 
-highly specific and idiosyncratic user study which may be hard to generalize.
-
-When getting external feedback about a tool (e.g. questionnaires or
-submitting merge requests), tool developers must consider ethics
-(including Institutional Review Board approval when required). Violations of ethical
-standards can cause severe consequences. For instance, the
-University of Minnesota got a university-wide ban from contributing to
-the Linux kernel. One of their systems security researchers submitted
-dubious merge requests to the Linux kernel for a hidden purpose that they did
-not state. The Linux Foundation deemed this
-unethical: Linux developers were offended that the university had 
-wasted the reviewers' time on purpose. This resulted in a university-wide ban
-following an email from Linux Foundation fellow Greg Kroah-Hartman
-which stated: ``I suggest you find a different community to do
-experiments on,'' and ``You are not welcome
-here.''~\cite{minnesota_banned}
-
 
 
 

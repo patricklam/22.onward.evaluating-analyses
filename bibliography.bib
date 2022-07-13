@@ -420,8 +420,95 @@ series = {NordiCHI '10}
 
 @InProceedings{griesmayer06:_repair_boolean_progr_applic_c,
   author =       {Andreas Griesmayer and Roderick Bloem and Byron Cook},
-  title =        {Repair of Boolean Programs with an Application to C},
+  title =        {Repair of Boolean Programs with an Application to {C}},
   booktitle = {CAV},
   year =      2006,
   pages =     {358--371}}
+
+@InProceedings{ren22:_autom_patch_unrep_build,
+  author =       {Zhilei Ren and Shiwei Sun and Jifeng Xuan and Xiaochen Li and Zhide Zhou and He Jiang},
+  title =        {Automated Patching for Unreproducible Builds},
+  booktitle = {ICSE},
+  year =      2022,
+  month =     {May}}
+
+@Misc{cox11:_introd_gofix,
+  author =    {Russ Cox},
+  title =     {Introducing {Gofix}},
+  howpublished = {\url{https://go.dev/blog/introducing-gofix}},
+  month =     {April},
+  year =      2011,
+  note =      {Accessed 12 July 2022.}}
+
+
+@Misc{visser04:_progr_trans,
+  author =    {Eelco Visser and Tom Mens and Malcolm Wallace},
+  title =     {Program Transformation},
+  howpublished = {\url{https://www.program-transformation.org/Transform/ProgramTransformation.html}},
+  month =     {May},
+  year =      2004,
+  note =      {Accessed 12 July 2022.}}
+
+
+@article{kahani19:_survey_class_model_trans_tools,
+author = {Kahani, Nafiseh and Bagherzadeh, Mojtaba and Cordy, James R. and Dingel, Juergen and Varr\'{o}, Daniel},
+title = {Survey and Classification of Model Transformation Tools},
+year = 2019,
+issue_date = {August    2019},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+volume = 18,
+number = 4,
+issn = {1619-1366},
+url = {https://doi.org/10.1007/s10270-018-0665-6},
+doi = {10.1007/s10270-018-0665-6},
+abstract = {Model transformation lies at the very core of model-driven engineering, and a large number of model transformation languages and tools have been proposed over the last few years. These tools can be used to develop, transform, merge, exchange, compare, and verify models and metamodels. In this paper, we present a comprehensive catalog of existing metamodel-based transformation tools and compare them using a qualitative framework. We begin by organizing the 60 tools we identified into a general classification based on the transformation approach used. We then compare these tools using a number of particular facets, where each facet belongs to one of six different categories and may contain several attributes. The results of the study are discussed in detail and made publicly available in a companion website with a capability to search for tools using the specified facets as search criteria. Our study provides a thorough picture of the state-of-the-art in model transformation techniques and tools. Our results are potentially beneficial to many stakeholders in the modeling community, including practitioners, researchers, and transformation tool developers.},
+journal = {Softw. Syst. Model.},
+month = {aug},
+pages = {2361–2397},
+numpages = 37,
+keywords = {Model transformation tools, Model-driven development, Survey, Metamodel, Classification}
+}
+
+@inproceedings{tobin-hochstadt11:_languag_librar,
+author = {Tobin-Hochstadt, Sam and St-Amour, Vincent and Culpepper, Ryan and Flatt, Matthew and Felleisen, Matthias},
+title = {Languages as Libraries},
+year = 2011,
+isbn = 9781450306638,
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi-org.proxy.lib.uwaterloo.ca/10.1145/1993498.1993514},
+doi = {10.1145/1993498.1993514},
+abstract = {Programming language design benefits from constructs for extending the syntax and semantics of a host language. While C's string-based macros empower programmers to introduce notational shorthands, the parser-level macros of Lisp encourage experimentation with domain-specific languages. The Scheme programming language improves on Lisp with macros that respect lexical scope. The design of Racket---a descendant of Scheme---goes even further with the introduction of a full-fledged interface to the static semantics of the language. A Racket extension programmer can thus add constructs that are indistinguishable from "native" notation, large and complex embedded domain-specific languages, and even optimizing transformations for the compiler backend. This power to experiment with language design has been used to create a series of sub-languages for programming with first-class classes and modules, numerous languages for implementing the Racket system, and the creation of a complete and fully integrated typed sister language to Racket's untyped base language.This paper explains Racket's language extension API via an implementation of a small typed sister language. The new language provides a rich type system that accommodates the idioms of untyped Racket. Furthermore, modules in this typed language can safely exchange values with untyped modules. Last but not least, the implementation includes a type-based optimizer that achieves promising speedups. Although these extensions are complex, their Racket implementation is just a library, like any other library, requiring no changes to the Racket implementation.},
+booktitle = {Proceedings of the 32nd ACM SIGPLAN Conference on Programming Language Design and Implementation},
+pages = {132–141},
+numpages = 10,
+keywords = {typed racket, macros, modules, extensible languages},
+location = {San Jose, California, USA},
+series = {PLDI '11}
+}
+
+  
+
+@article{10.1145/1993316.1993514,
+author = {Tobin-Hochstadt, Sam and St-Amour, Vincent and Culpepper, Ryan and Flatt, Matthew and Felleisen, Matthias},
+title = {Languages as Libraries},
+year = {2011},
+issue_date = {June 2011},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {46},
+number = {6},
+issn = {0362-1340},
+url = {https://doi-org.proxy.lib.uwaterloo.ca/10.1145/1993316.1993514},
+doi = {10.1145/1993316.1993514},
+abstract = {Programming language design benefits from constructs for extending the syntax and semantics of a host language. While C's string-based macros empower programmers to introduce notational shorthands, the parser-level macros of Lisp encourage experimentation with domain-specific languages. The Scheme programming language improves on Lisp with macros that respect lexical scope. The design of Racket---a descendant of Scheme---goes even further with the introduction of a full-fledged interface to the static semantics of the language. A Racket extension programmer can thus add constructs that are indistinguishable from "native" notation, large and complex embedded domain-specific languages, and even optimizing transformations for the compiler backend. This power to experiment with language design has been used to create a series of sub-languages for programming with first-class classes and modules, numerous languages for implementing the Racket system, and the creation of a complete and fully integrated typed sister language to Racket's untyped base language.This paper explains Racket's language extension API via an implementation of a small typed sister language. The new language provides a rich type system that accommodates the idioms of untyped Racket. Furthermore, modules in this typed language can safely exchange values with untyped modules. Last but not least, the implementation includes a type-based optimizer that achieves promising speedups. Although these extensions are complex, their Racket implementation is just a library, like any other library, requiring no changes to the Racket implementation.},
+journal = {SIGPLAN Not.},
+month = {jun},
+pages = {132–141},
+numpages = {10},
+keywords = {typed racket, macros, modules, extensible languages}
+}
+
+  
 
