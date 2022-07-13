@@ -18,7 +18,7 @@ and by~\emph{who}?
 \end{minipage}
 }
 \end{center}
-This question works for all tools, but we will focus on program
+This question works for a wide class of tools, but we will focus on program
 transformation tools. The goal of the tool developers is to choose
 an evaluation that will show that the tool is useful on an important
 set of subjects for an appropriate audience.
@@ -99,7 +99,7 @@ Such examples also serve as concrete examples of a tool's usefulness.
 
 \paragraph{Who evaluates?}
 A key remaining question is: which humans should evaluate the
-results of the tool?  Possible answers include the researchers
+results of the tool\footnote{One could alternatively say that any evaluation is saying as much about the evaluators as about the tool itself.}?  Possible answers include the researchers
 developing the tool; arbitrary developers; or the developers of
 particular software projects.
 
@@ -112,7 +112,9 @@ developers about what factors would be important to actual
 users. Still, it is a necessary first step in tool evaluation, before
 presenting the tool to an external audience.
 
-Assuming that one accepts that an external audience is desirable,
+Assuming that one accepts that an external audience is desirable 
+(which, as discussed earlier, is not a settled question
+for programming language designs),
 then potential or actual tool users are the gold standard audience for
 obtaining valuable feedback. Submitting merge requests to open source
 projects is one way to solicit real feedback, even if preparing the merge requests
@@ -130,13 +132,13 @@ For instance, \citeN{ren22:_autom_patch_unrep_build} developed a tool
 to automatically generate patches to fix unreproducible builds.
 In addition to manually verifying that the 64 generated patches over 116 packages
 are correct, they submit 4 patches to the Arch Linux distribution and report
-that 2 of the patches had been accepted as of publication.
+that 2 of the patches had been accepted as their article went to press.
 
-When getting external feedback about a tool (e.g. questionnaires or
+\paragraph{Ethics} When getting external feedback about a tool (e.g. questionnaires or
 submitting merge requests), tool developers must consider ethics
 (including Institutional Review Board approval when required). Although
 ethics requirements vary, the requirements
-applicable to us state that ethics review 
+applicable to the authors state that ethics review 
 ``is not required for the initial exploratory phase, which is intended to establish research partnerships or to inform the design of a research proposal, and may involve contact with individuals or communities\footnote{Citation omitted for double-blind review.},'' and we believe that what we
 described here falls within the initial exploratory phase.
 
@@ -144,8 +146,8 @@ Violations of ethical
 standards can cause severe consequences. For instance, the
 University of Minnesota got a university-wide ban from contributing to
 the Linux kernel. One of their systems security researchers submitted
-dubious merge requests to the Linux kernel for a hidden purpose that they did
-not state. The Linux Foundation deemed this
+dubious merge requests to the Linux kernel for an undisclosed purpose. 
+The Linux Foundation deemed this
 unethical: Linux developers were offended that the university had 
 wasted the reviewers' time on purpose. This resulted in a university-wide ban
 following an email from Linux Foundation fellow Greg Kroah-Hartman

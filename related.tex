@@ -4,11 +4,25 @@
 %% discussed programming language designs. We now
 %% discuss evaluations of language implementations and of visualization
 %% tools.
+There is a small body of work on evaluating languages rather than tools.
+But first, we point out~\citeN{hoare74:_hints}'s work on programming language
+design. In that work, Hoare uses rhetoric and experience, but not experiments,
+to support claims about programming language design. More recently,
+there was a Dagstuhl workshop ``Evidence About Programmers for Programming
+Language Design''~\cite{stefik18:_eviden_about_progr_progr_languag_desig} which discussed, in part, the role of evaluations in programming language design.
+
+
+\citeN{coblenz18:_inter_progr_languag_desig} 
+discussed big-picture issues with respect to how to design and evaluate programming languages, and followed up with a specific case study focussing on their Obsidian
+language~\cite{coblenz20:_can_advan_type_system_be_usabl}.
+Earlier, \citeN{markstrum10:_stakin_claim} noted that programming 
+language design claims were typically under-supported, and \citeN{halverson09:_climb_plateau} explored how to evaluate programmer productivity in a
+proposed language. 
 
 To our knowledge, the first empirical evaluations in the programming
 languages fields were of programming language implementations
 (e.g. compilers, and, later, Just-in-Time engines); 
-SPEC was formed to curate nominally-impartial benchmark suites,
+SPEC was charged with curating impartial benchmark suites,
 which would evaluate the performance of
 computer systems and programming language implementations. 
 The influence of this early focus continues
@@ -28,14 +42,14 @@ performance-related evaluations of implementations.
 The present work focusses more on holistic
 evaluations of designs of program transformation tools.
 
-We are not aware of any other work surveying the program
+We are not aware of any other work surveying evaluations in the program
 transformation tools space, though~\citeN{visser04:_progr_trans}
-provided a taxonomy at \url{https://www.program-transformation.org/}.
+provided a taxonomy of such tools at \url{https://www.program-transformation.org/}.
 \citeN{kahani19:_survey_class_model_trans_tools} classify the
-\emph{declared capabilities} of 60 model transformation tools. Unlike
+\emph{declared} capabilities of 60 model transformation tools. Unlike
 the present work, they do not discuss the quality of the evidence
 behind each of the model transformation tools; our aim here is instead
-to establish best practices for showing usefulness of program
+to discuss best practices for showing usefulness of program
 transformation tools.
 
 Program transformation tools can be viewed as software engineering
