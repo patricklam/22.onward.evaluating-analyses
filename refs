@@ -27,3 +27,15 @@ http://evaluate.inf.usi.ch/artifacts
 
 rejected refactorings:
 https://mdipenta.github.io/files/tosem-rejected-refact-2022.pdf
+
+To quote Peter Naur [33]:
+It is curious to observe how the authors in this field, who in
+the formal aspects of their work require painstaking
+demonstration and proof, in the informal aspects are satisfied
+with subjective claims that have not the slightest support,
+neither in argument nor in verifiable evidence. Surely
+common sense will indicate that such a manner is
+scientifically unacceptable.
+
+Naur, P. (1992). The place of strictly defined notation in human
+insight. In Computing: A Human Activity, ACM Press
